@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="cadastro-form">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+           
+                <legend>Cadastre-se</legend>
+                
+                
+       
+            <div class="grupo-form">
+                {{form.submit(class='botao')}}
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}

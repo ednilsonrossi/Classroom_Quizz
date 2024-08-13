@@ -1,0 +1,41 @@
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
+    
+class Cadastro_Formulario_Pagina1(FlaskForm):
+    email = StringField('E-mail',
+                            validators=[DataRequired(), Email(), Length(max=256)])
+    senha = PasswordField('Senha',
+                          validators=[DataRequired(), Length(min=8, max=50)])
+    confirm_senha = PasswordField('Confirme a senha',
+                          validators=[DataRequired(), EqualTo('senha')])
+    submit = SubmitField('Continuar')
+    
+class Cadastro_Formulario_Pagina2(FlaskForm):
+    remember = BooleanField('Lembrar da senha')
+    submit = SubmitField('Continuar')
+    
+class Cadastro_Formulario_Pagina3(FlaskForm):
+    idade = IntegerField('Idade',
+                         validators=[DataRequired(), NumberRange(min=6, max=100)])
+    submit = SubmitField('Continuar')
+    
+class Cadastro_Formulario_Pagina4(FlaskForm):
+    nome = StringField('Nome',
+                          validators=[DataRequired(), Length(min=2, max=26)])
+    sobrenome = StringField('Sobrenome',
+                            validators=[DataRequired(), Length(min=2, max=26)])
+    usuario = StringField('Usuário',
+                            validators=[DataRequired(), Length(min=2, max=26)])
+    submit = SubmitField('Enviar')
+    
+#FORMULÁRIO DO LOGIN
+class Login_Formulario(FlaskForm):
+    email = EmailField('E-mail',
+                            validators=[DataRequired(), Email(), Length(max=256)])
+    senha = PasswordField('Senha',
+                          validators=[DataRequired(), Length(min=8, max=50)])
+    remember = BooleanField('Lembrar da senha')
+    submit = SubmitField('Entrar')
+    
+    

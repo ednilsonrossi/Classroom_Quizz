@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="login-form">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="grupo-form">
+                {{ form.nome.label(class='label-control-form')}}
+                {{form.nome(class='control-form')}}
+            </div>
+            <div class="grupo-form">
+                {{ form.sobrenome.label(class='label-control-form')}}
+                {{form.sobrenome(class='control-form')}}
+            </div>
+            <div class="grupo-form">
+                {{ form.usuario.label(class='label-control-form')}}
+                {{form.usuario(class='control-form')}}
+            </div>
+            <div class="grupo-form">
+                {{form.submit(class='botao')}}
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}

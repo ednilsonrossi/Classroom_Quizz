@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="login-form">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+                <div class="grupo-form">
+                    {{ form.email.label(class='label-control-form')}}
+                    {{form.email(class='control-form', placeholder='@gmail.com')}}
+                </div>
+                <div class="grupo-form">
+                    {{ form.senha.label(class='label-control-form')}}
+                    {{form.senha(class='control-form')}}
+                </div>
+                <div class="grupo-form">
+                    {{ form.confirm_senha.label(class='label-control-form')}}
+                    {{form.confirm_senha(class='control-form')}}
+                </div>
+            <div class="grupo-form">
+                {{form.submit(class='botao')}}
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}

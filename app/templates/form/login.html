@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="login-form">
+        <div class='form-box'>
+            <h2>Login</h2>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="grupo-form">
+                    <span class='icon'><ion-icon name="mail"></ion-icon></span>
+                    {{form.email(class='control-form', placeholder='Seu e-mail')}}
+                </div>
+                <div class="grupo-form">
+                    <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
+                    {{form.senha(class='control-form', placeholder='Sua senha')}}
+                </div>
+                {{form.remember.label(class='label-control-form')}}
+                {{form.remember(class='control-form')}}
+                <div class="grupo-form">
+                    {{form.submit(class='botao-login')}}
+                </div>
+            </form>
+            <div>
+                <small class='conta'>Não possui uma conta? <a href='{{url_for('cadastro')}}'>Criar conta</a></small>
+            </div>
+        </div>
+    </div>
+    
+{% endblock conteudo %}

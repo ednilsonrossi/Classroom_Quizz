@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <div class="login-form">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            
+            <div class='grupo-form'>
+                {{form.idade(class='control-form')}}
+            <div class="grupo-form">
+                {{form.submit(class='botao')}}
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}
