@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for
-from forms import Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2, Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4, Login_Formulario
+from forms import Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2, Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4, Login_Formulario, Pagina_Insercao_Codigo
 
 app = Flask(__name__)
 
@@ -7,7 +7,10 @@ app.config['SECRET_KEY'] = 'c647d91a97a43c55737237d104d621f6b3ef8b2f'
 
 @app.route('/')
 def home():
-    return render_template('index.html', title='Home')
+    form = Pagina_Insercao_Codigo()
+    if form.validate_on_submit():
+        return redirect(url_for(''))
+    return render_template('index.html', title='Home', form=form)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():

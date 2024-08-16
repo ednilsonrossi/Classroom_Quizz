@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
 
 {% block conteudo%}
-<img src="{{url_for('static', filename="img/27610alt.png")}}" id="lousa">
+
+
+ <div class="bloco1">
+    <div class="bloco1_1">
+        <h2 class="logo">Olá seja bem-vindo ao Classroom Quiz!</h2>
+        <p class="text-bloco1">Aventure-se neste mundo de diversões jogando agora mesmo.</p>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="grupo-form">
+                {{form.codigo(class='control-form', placeholder='Código da sala')}}
+            </div>
+            <div class="grupo-form">
+                {{form.submit(class='botao-login')}}
+            </div>
+        </form>
+    </div>
+ </div>
+ <div class="bloco1"></div>
+
+ <div class="bloco2">
+    <h2>Contato</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum fugit velit consequuntur facilis nulla facere sit temporibus, accusantium alias incidunt labore repudiandae nobis ratione rerum in esse voluptatem, expedita quisquam!</p>
+
+ </div>
 {%endblock conteudo%}
 </body>
 </html>

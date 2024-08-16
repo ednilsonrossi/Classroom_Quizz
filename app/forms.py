@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
-    
+
+#Formulário do Código da Turma
+class Pagina_Insercao_Codigo(FlaskForm):
+    codigo = StringField('codigo',
+                          validators=[DataRequired(), Length(min=6, max=6)])
+    submit = SubmitField('Entrar')
+
+#Formulário do cadastro
 class Cadastro_Formulario_Pagina1(FlaskForm):
     email = StringField('E-mail',
                             validators=[DataRequired(), Email(), Length(max=256)])
