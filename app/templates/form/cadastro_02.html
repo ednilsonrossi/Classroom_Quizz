@@ -5,10 +5,11 @@
         <form action="" method="post">
             {{ form.hidden_tag() }}
            
-                <legend>Cadastre-se</legend>
-                
-                
-       
+            <legend>Cadastre-se</legend>
+               
+            <div>
+                {{form.tipo_conta(class='control-form')}}
+            </div>
             <div class="grupo-form">
                 {{form.submit(class='botao')}}
             </div>

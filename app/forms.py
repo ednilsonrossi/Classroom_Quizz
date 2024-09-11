@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField, RadioField, SelectField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 
 #Formulário do Código da Turma
@@ -19,19 +19,17 @@ class Cadastro_Formulario_Pagina1(FlaskForm):
     submit = SubmitField('Continuar')
     
 class Cadastro_Formulario_Pagina2(FlaskForm):
-    remember = BooleanField('Lembrar da senha')
+    tipo_conta = RadioField(choices=[('aluno', 'Aluno'), ('professor', 'Professor')])
     submit = SubmitField('Continuar')
     
 class Cadastro_Formulario_Pagina3(FlaskForm):
-    idade = IntegerField('Idade',
-                         validators=[DataRequired(), NumberRange(min=6, max=100)])
+    nascimento = DateField('Nascimento', format='%Y-%m-%d', 
+                          validators=[DataRequired()])
     submit = SubmitField('Continuar')
     
 class Cadastro_Formulario_Pagina4(FlaskForm):
     nome = StringField('Nome',
-                          validators=[DataRequired(), Length(min=2, max=26)])
-    sobrenome = StringField('Sobrenome',
-                            validators=[DataRequired(), Length(min=2, max=26)])
+                          validators=[DataRequired(), Length(min=2, max=60)])
     usuario = StringField('Usuário',
                             validators=[DataRequired(), Length(min=2, max=26)])
     submit = SubmitField('Enviar')

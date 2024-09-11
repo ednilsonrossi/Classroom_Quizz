@@ -12,13 +12,13 @@
         <nav class='nav-menu-h'>
             <h1 class='logo'>Classroom Quiz</h1>
             <ul class="ul-menu-h">
-                <li><a href="{{url_for('home')}}" class='link_a_menu'>Home</a></li>
-                <li><a href="{{url_for('home')}}" class='link_a_menu'>Sobre</a></li>
-                <li><a href="{{url_for('home')}}" class='link_a_menu'>Contato</a></li>
+                <li><a href="{{url_for('init.home')}}" class='link_a_menu'>Home</a></li>
+                <li><a href="{{url_for('init.home')}}" class='link_a_menu'>Sobre</a></li>
+                <li><a href="{{url_for('init.home')}}" class='link_a_menu'>Contato</a></li>
             </ul>
 
             <ul class='botao-enter'>
-                <a href='{{url_for('login')}}'><li >Entrar</li></a>
+                <a href='{{url_for('login.login_user')}}'><li >Entrar</li></a>
             </ul>
 
             <div class="mobile-menu-icon">
@@ -27,13 +27,13 @@
 
             <div class="menu-mobile">
                 <ul class="ul-menu-h">
-                    <li><a href="{{url_for('home')}}" class='link_a_menu'>Home</a></li>
-                    <li><a href="{{url_for('cadastro')}}" class='link_a_menu'>Sobre</a></li>
+                    <li><a href="{{url_for('init.home')}}" class='link_a_menu'>Home</a></li>
+                    <li><a href="{{url_for('init.home')}}" class='link_a_menu'>Sobre</a></li>
                     <li><a href="/" class='link_a_menu'>Contato</a></li>
                 </ul>
     
                 <ul class='botao-enter'>
-                    <a href='{{url_for('login')}}'><li >Entrar</li></a>
+                    <a href='{{url_for('login.login_user')}}'><li >Entrar</li></a>
                 </ul>
             </div>
         </nav>
