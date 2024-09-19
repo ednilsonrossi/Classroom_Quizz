@@ -1,18 +1,43 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-    <div class="cadastro-form">
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-           
-            <legend>Cadastre-se</legend>
-               
-            <div>
-                {{form.tipo_conta(class='control-form')}}
-            </div>
-            <div class="grupo-form">
-                {{form.submit(class='botao')}}
-            </div>
-        </form>
-    </div>
+<div class="container-fluid">
+    <form action="" method="post" class="form-choices mx-auto">
+        {{ form.hidden_tag() }}
+        <h3 class="text-center title-form">O quê sou?</h3>
+        
+        <div class="mt-5 row">
+            {% if form.tipo_conta.choices %}
+                {% set first_choice1 = form.tipo_conta.choices[0] %}
+                <div class="col-md-6 col-12 mb-4"> <!-- Cartão 1 -->
+                    <div class="card">
+                        <input type="radio" id="radio-{{ first_choice1[0] }}" name="tipo_conta" value="{{ first_choice1[0] }}" class='btn-check' autocomplete="off">
+                        <label for="radio-{{ first_choice1[0] }}" class="card-body">
+                            <i class="fa-solid fa-book-open-reader bg-primary icon-choices d-flex text-center"></i>
+                            <h5 class="card-title">{{ first_choice1[1] }}</h5>
+                        </label>
+                    </div>
+                </div>
+
+                {% set first_choice2 = form.tipo_conta.choices[1] %}
+                <div class="col-md-6 col-12 mb-4"> <!-- Cartão 2 -->
+                    <div class="card">
+                        <input type="radio" id="radio-{{ first_choice2[0] }}" name="tipo_conta" value="{{ first_choice2[0] }}" class='btn-check' autocomplete="off">
+                        <label for="radio-{{ first_choice2[0] }}" class="card-body">
+                            <i class="fa-solid fa-chalkboard-user icon-choices d-flex text-center"></i>
+                            <h5 class="card-title">{{ first_choice2[1] }}</h5>
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="mt-4 mb-4 d-flex">
+            <a href="{{ url_for('cadastro.cadastro_01') }}" class="btn btn-secondary btn-back flex-fill me-2">Voltar</a>
+            {{ form.submit(class='btn btn-continue flex-fill') }}
+        </div>
+        
+        
+    </form>
+</div>
+<br>
 {% endblock conteudo %}

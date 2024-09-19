@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, session
+from datetime import datetime
 from forms import Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2, Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4
 from models.users import Users
 from utils.db import db
@@ -35,7 +36,7 @@ def cadastro_03():
     form = Cadastro_Formulario_Pagina3()
     if form.validate_on_submit():
         session['nascimento'] = form.nascimento.data
-
+        print(form.nascimento.data)
         return redirect(url_for('cadastro.cadastro_04'))
     return render_template('form/cadastro_03.html', title='Cadastre-se', form= form)
 
@@ -51,7 +52,11 @@ def cadastro_04():
             'usuario': form.usuario.data,
             'nascimento': session.get('nascimento')
         }
-
+        #Esta parte irá transformar o dado nascimento de String em um formato de Date
+        dados_usuario['nascimento'] = datetime.strptime(dados_usuario['nascimento'], "%a, %d %b %Y %H:%M:%S %Z")if dados_usuario['nascimento'] else None
+        #Irá ajustar o objeto datetime em uma string no formato desejado no caso ano-mês-dia.
+        dados_usuario['nascimento'] = datetime.strftime(dados_usuario['nascimento'], "%Y-%m-%d")if dados_usuario['nascimento'] else None
+        
         user = Users(**dados_usuario)
         db.session.add(user)
         db.session.commit()

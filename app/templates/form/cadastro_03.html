@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-    <div class="login-form">
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-            
-            <div class='grupo-form'>
-                {{form.nascimento(class='control-form')}}
-            </div>
-            <div class="grupo-form">
-                {{form.submit(class='botao')}}
-            </div>
-        </form>
-    </div>
+<div class="container-fluid">
+    <form action="" method="post" class="form-default mx-auto">
+        {{ form.hidden_tag() }}
+        <h3 class="text-center title-form">Data de nascimento</h3>
+        <div class="mt-5">
+            {{form.nascimento(class='form-control text-center')}}
+        </div>
+        <br></br>
+        <div class="mt-2 mb-6 d-flex justify-content-center align-items-center">
+            <a href="{{ url_for('cadastro.cadastro_02') }}" class="btn btn-secondary btn-back flex-fill me-2">Voltar</a>
+            {{ form.submit(class='btn btn-continue flex-fill') }}
+        </div>
+    </form>
+</div>
 {% endblock conteudo %}

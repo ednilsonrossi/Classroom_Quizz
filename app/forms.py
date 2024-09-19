@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField, RadioField, SelectField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, EmailField, IntegerField, RadioField, SelectField, DateField,DateTimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 
 #Formulário do Código da Turma

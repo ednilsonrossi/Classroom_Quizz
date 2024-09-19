@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-    <div class="login-form">
-        <div class='form-box'>
-            <h2>Login</h2>
-            <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <div class="grupo-form">
-                    <span class='icon'><ion-icon name="mail"></ion-icon></span>
-                    {{form.email(class='control-form', placeholder='Seu e-mail')}}
-                </div>
-                <div class="grupo-form">
-                    <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
-                    {{form.senha(class='control-form', placeholder='Sua senha')}}
-                </div>
-                {{form.remember.label(class='label-control-form')}}
-                {{form.remember(class='control-form')}}
-                <div class="grupo-form">
-                    {{form.submit(class='botao-login')}}
-                </div>
-            </form>
-            <div>
-                <small class='conta'>Não possui uma conta? <a href='{{url_for("cadastro.cadastro_01")}}'>Criar conta</a></small>
+<div class="container-fluid">
+    <form action="" method="post" class="form-default mx-auto">
+        {{ form.hidden_tag() }}
+        <h3 class="text-center title-form">Login</h3>
+        <div class="mb-4 mt-5">
+            <span class='icon'><ion-icon name="mail"></ion-icon></span>
+            {{form.email(class='form-control', placeholder='Seu e-mail')}}
+        </div>
+        <div class="mb-3">
+            <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
+            {{form.senha(class='form-control', placeholder='Sua senha')}}
+        </div>
+        <div class=" mb-3 row d-flex justify-content-center align-items-center" style="gap: 2px;">
+            <div class="form-check col-auto">
+                {{form.remember.label(class='form-text')}}
+                {{form.remember(class='form-check-input d-flex justify-content-center align-items-center ')}}
+            </div>
+            <div class="form-check col-auto">
+                <a href="" class="form-text text-primary">Esqueceu sua senha?</a>
             </div>
         </div>
-    </div>
-    
+        {{form.submit(class=' mb-4 btn btn-primary mt-4')}}
+        <div>
+            <small class='conta'>Não possui uma conta? <a href='{{url_for("cadastro.cadastro_01")}}'>Criar conta</a></small>
+        </div>
+    </form>
+</div>
 {% endblock conteudo %}
