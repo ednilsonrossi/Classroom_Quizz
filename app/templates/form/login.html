@@ -6,12 +6,31 @@
         {{ form.hidden_tag() }}
         <h3 class="text-center title-form">Login</h3>
         <div class="mb-4 mt-5">
-            <span class='icon'><ion-icon name="mail"></ion-icon></span>
-            {{form.email(class='form-control', placeholder='Seu e-mail')}}
+
+            {% if form.email.errors %}
+                {{form.email(class='form-control is-invalid alert-danger')}}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <span class='icon'><ion-icon name="mail"></ion-icon></span>
+                {{form.email(class='form-control', placeholder='Seu e-mail')}}
+            {% endif %}
         </div>
         <div class="mb-3">
-            <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
-            {{form.senha(class='form-control', placeholder='Sua senha')}}
+            {% if form.senha.errors %}
+                {{form.senha(class='form-control is-invalid alert-danger')}}
+                <div class="invalid-feedback">
+                    {% for error in form.senha.errors %}
+                        <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
+                {{form.senha(class='form-control', placeholder='Sua senha')}}
+            {% endif %}
         </div>
         <div class=" mb-3 row d-flex justify-content-center align-items-center" style="gap: 2px;">
             <div class="form-check col-auto">

@@ -6,7 +6,16 @@
         {{ form.hidden_tag() }}
         <h3 class="text-center title-form">Data de nascimento</h3>
         <div class="mt-5">
+            {% if form.nascimento.errors %}
+            {{form.nascimento(class='form-control text-center is-invalid alert-danger')}}
+            <div class="invalid-feedback">
+                {% for error in form.nascimento.errors %}
+                    <span>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% else %}
             {{form.nascimento(class='form-control text-center')}}
+        {% endif %}
         </div>
         <br></br>
         <div class="mt-2 mb-6 d-flex justify-content-center align-items-center">

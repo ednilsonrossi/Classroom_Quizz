@@ -57,6 +57,13 @@ body{
     border-radius: 20px;
     margin-top: 60px; 
 }
+
+@media (max-width: 1000px) {
+    .form-default {
+        width: 60%; 
+    }
+}
+
 .btn-primary{
     width: 100%;
     border: none;
@@ -68,6 +75,7 @@ body{
     background-color: rgb(35, 122, 35);
     transition: background 0.6s;
 }
+
 .form-control{
     background:#fff;
     border-radius: 10px;

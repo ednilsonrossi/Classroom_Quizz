@@ -13,7 +13,6 @@ def cadastro_01():
         session['email'] = form.email.data
         session['senha'] = form.senha.data
         
-        flash(f'Conta criada por {form.email.data}')
         return redirect(url_for('cadastro.cadastro_02'))
     
     return render_template('form/cadastro_01.html', title='Cadastre-se', form= form)
@@ -62,5 +61,11 @@ def cadastro_04():
         db.session.commit()
         session.clear()
         
-        return redirect(url_for('init.home'))   
+        flash(f'Conta criada com sucesso para {form.nome.data}!', 'success' )
+
+        if session.get('tipo_conta') == 'professor':
+            return redirect(url_for('home.teacher_home'))
+        else:
+            return redirect(url_for('home.student_home'))   
+            
     return render_template('form/cadastro_04.html', title='Cadastre-se', form= form)

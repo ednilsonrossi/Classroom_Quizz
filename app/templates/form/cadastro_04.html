@@ -6,15 +6,40 @@
             {{ form.hidden_tag() }}
             <h3 class="text-center title-form">Perfil</h3>
             <div class="mb-4 mt-5">
-                <span class="icon"><ion-icon name="person"></ion-icon></span>
-                {{form.nome(class='form-control', placeholder='Nome completo')}}
+                {% if form.nome.errors %}
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    {{form.nome(class='form-control is-invalid alert-danger')}}
+                    <div class="invalid-feedback">
+                        {% for error in form.nome.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    {{form.nome(class='form-control', placeholder='Nome completo')}}
+                {% endif %}
             </div>
             <div class="mb-4">
-                <span class='icon'><ion-icon name="rocket"></ion-icon></span>
-                {{form.usuario(class='form-control', placeholder='Nome de usuário')}}
+                {% if form.usuario.errors %}
+                    <span class='icon'><ion-icon name="rocket"></ion-icon></span>
+                    {{form.usuario(class='form-control is-invalid alert-danger')}}
+                    <div class="invalid-feedback">
+                        {% for error in form.usuario.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <span class='icon'><ion-icon name="rocket"></ion-icon></span>
+                    {{form.usuario(class='form-control', placeholder='Nome de usuário')}}
+                {% endif %}
             </div>
             <div class="mt-2 mb-6 d-flex justify-content-center align-items-center">
-                <a href="{{ url_for('cadastro.cadastro_02') }}" class="btn btn-secondary btn-back flex-fill me-2 w-25">Voltar</a>
+                
+                {% if session.get('tipo_conta') == 'professor' %}
+                    <a href="{{ url_for('cadastro.cadastro_02') }}" class="btn btn-secondary btn-back flex-fill me-2 w-25">Voltar</a>
+                {% else %}
+                    <a href="{{ url_for('cadastro.cadastro_03') }}" class="btn btn-secondary btn-back flex-fill me-2 w-25">Voltar</a>
+                {% endif %}
                 {{ form.submit(class='btn btn-continue w-25 flex-fill') }}
             </div>
         </form>

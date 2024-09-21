@@ -7,5 +7,5 @@ login = Blueprint('login', __name__)
 def login_user():
     form = Login_Formulario()
     if form.validate_on_submit():
-        return redirect(url_for('home_teacher.home'))
+        return redirect(url_for('home.teacher_home'))
     return render_template('form/login.html', title='Login', form= form)
