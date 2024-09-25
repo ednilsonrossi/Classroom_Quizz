@@ -3,6 +3,7 @@ from datetime import datetime
 from forms import Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2, Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4
 from models.users import Users
 from utils.db import db
+from flask_login import login_user
 
 cadastro = Blueprint('cadastro', __name__)
 
@@ -61,11 +62,12 @@ def cadastro_04():
         db.session.commit()
         session.clear()
         
+        login_user(user)
         flash(f'Conta criada com sucesso para {form.nome.data}!', 'success' )
-
-        if session.get('tipo_conta') == 'professor':
+        if user.tipo_conta == 'professor':
             return redirect(url_for('home.teacher_home'))
         else:
-            return redirect(url_for('home.student_home'))   
+            return redirect(url_for('home.student_home')) 
+
             
     return render_template('form/cadastro_04.html', title='Cadastre-se', form= form)

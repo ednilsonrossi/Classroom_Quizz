@@ -6,7 +6,22 @@
         {{ form.hidden_tag() }}
         <h3 class="text-center title-form">Login</h3>
         <div class="mb-4 mt-5">
-
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class='alert alert-{{category}} alert-dismissible fade-show role='alert'>
+                            <button
+                            type="button"
+                            class="btn btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close">
+                            </button>
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    
             {% if form.email.errors %}
                 {{form.email(class='form-control is-invalid alert-danger')}}
                 <div class="invalid-feedback">
@@ -15,7 +30,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon'><ion-icon name="mail"></ion-icon></span>
+                <span class='icon-form'><ion-icon name="mail"></ion-icon></span>
                 {{form.email(class='form-control', placeholder='Seu e-mail')}}
             {% endif %}
         </div>
@@ -28,7 +43,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon'><ion-icon name="lock-closed"></ion-icon></span>
+                <span class='icon-form'><ion-icon name="lock-closed"></ion-icon></span>
                 {{form.senha(class='form-control', placeholder='Sua senha')}}
             {% endif %}
         </div>

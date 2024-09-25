@@ -2,30 +2,45 @@
 
 {% block conteudo%}
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class='alert alert-{{category}} alert-dismissible fade-show role='alert'>
+                <button
+                type="button"
+                class="btn btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+                </button>
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
- <div class="bloco1">
-    <div class="bloco1_1">
-        <h2 class="logo">Olá seja bem-vindo ao Classroom Quiz!</h2>
-        <p class="text-bloco1">Aventure-se neste mundo de diversões jogando agora mesmo.</p>
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-            <div class="grupo-form">
-                {{form.codigo(class='control-form', placeholder='Código da sala')}}
-            </div>
-            <div class="grupo-form">
-                {{form.submit(class='botao-login')}}
-            </div>
-        </form>
+    <div class="bloco1">
+        <div class="bloco1_1">
+            <h2 class="logo">Olá seja bem-vindo ao Classroom Quiz!</h2>
+            <p class="text-bloco1">Aventure-se neste mundo de diversões jogando agora mesmo.</p>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="grupo-form">
+                    {{form.codigo(class='control-form', placeholder='Código da sala')}}
+                </div>
+                <div class="grupo-form">
+                    {{form.submit(class='botao-login')}}
+                </div>
+            </form>
+        </div>
     </div>
- </div>
- <div class="bloco1"></div>
+    <div class="bloco1"></div>
 
- <div class="bloco2">
-    <h2>Sobre</h2>
-    <h2>Contato</h2>
-    
+    <div class="bloco2">
+        <h2>Sobre</h2>
+        <h2>Contato</h2>
+        
 
- </div>
+    </div>
 {%endblock conteudo%}
 </body>
 </html>

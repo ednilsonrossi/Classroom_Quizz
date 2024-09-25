@@ -91,7 +91,7 @@ body{
         width: 90% !important;
     }
 }
-.icon{
+.icon-form{
     position: absolute;
     padding-left: 8px;
     font-size: 1.2em;
@@ -189,3 +189,98 @@ body{
     padding: 10px 33px;
 }
 /* FIM AREA DE CADASTRO PAGE 02 */
+
+/* AREA HOME MENU VERTICAL */
+.sidebar-menuv{
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: 180px;
+    padding-top: 20px;
+    background: #FFEBC6;
+    transition: width 0.3s;
+    z-index: 1020;
+    top: 56px;
+    height: calc(100vh - 56px); 
+    overflow-y: auto;
+    
+}
+
+.sidebar-menuv .nav-link{
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px ;
+    color: black;
+}
+
+.sidebar-menuv .description{
+    font-size: 16px;
+}
+
+.sidebar-menuv .nav-link:hover{
+    background-color: #ee9700;
+    color: #fff;
+}
+
+.main-content{
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    top: 70px;
+    height: calc(100vh - 56px); /* Altura da tela menos a navbar */
+    overflow-y: auto; /* Permite rolagem no conteúdo principal */
+    z-index: 1  ; /* Para garantir que o conteúdo fique atrás da navbar e do menu */
+    position: relative; /* Garante que o conteúdo fique no fluxo do layout */
+}
+
+@media(max-width: 700px){
+    .sidebar-menuv{
+        width: 60px;
+    }
+    .sidebar-menuv .description{
+        display: none;
+    }
+
+    .sidebar-menuv .nav-link{
+       justify-content: center; 
+    }
+    .main-content{
+        margin-left: 60px;
+    }
+}
+
+/* AREA DE CODIGO DA SALA */
+.form-codigo{
+    width:30%;
+    background-color: #88B1BA;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 60px; 
+}
+
+.btn-codigo {
+    border: none;
+    border-radius: 10px;
+    background: #EE9700;
+    color: #fff;
+    padding: 7px 20px;
+}
+.btn-codigo:hover {
+    background-color: #d48907;
+    transition: background 0.6s;
+    color: #fff;
+}
+
+@media (max-width: 1000px) {
+    .form-codigo {
+        width: 60%; 
+    }
+}
+
+@media (max-width: 400px){
+    .title{
+        font-size: 20px;
+    }
+}
