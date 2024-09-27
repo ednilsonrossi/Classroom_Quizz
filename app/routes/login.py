@@ -13,10 +13,7 @@ def login_usuario():
         if usuario_logado and usuario_logado.conversor_pwd(senha_descripto=form.senha.data):
             login_user(usuario_logado)
             flash(f'Sucesso! Seja bem-vindo {usuario_logado.nome}', category='success')
-            if usuario_logado.tipo_conta == 'professor':
-                return redirect(url_for('home.teacher_home'))
-            else:
-                return redirect(url_for('home.student_home'))
+            return redirect(url_for('home.homepage'))
         else:
             flash('Usuário ou senha inválidos!', category='danger')
     return render_template('form/login.html', title='Login', form= form)

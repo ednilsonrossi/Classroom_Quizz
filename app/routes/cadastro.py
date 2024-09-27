@@ -64,10 +64,7 @@ def cadastro_04():
         
         login_user(user)
         flash(f'Conta criada com sucesso para {form.nome.data}!', 'success' )
-        if user.tipo_conta == 'professor':
-            return redirect(url_for('home.teacher_home'))
-        else:
-            return redirect(url_for('home.student_home')) 
+        return redirect(url_for('home.homepage')) 
 
             
     return render_template('form/cadastro_04.html', title='Cadastre-se', form= form)

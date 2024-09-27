@@ -5,10 +5,10 @@ from flask_login import login_required
 
 home = Blueprint('home', __name__)
 
-@home.route('/teacher')
+@home.route('/')
 @login_required
-def teacher_home():
-    return render_template('home_teacher.html', title='Home')
+def homepage():
+    return render_template('home.html', title='Home')
 
 @home.route('/student')
 @login_required
