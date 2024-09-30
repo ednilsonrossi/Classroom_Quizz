@@ -53,5 +53,7 @@ class Login_Formulario(FlaskForm):
                           validators=[DataRequired(), Length(min=8, max=50)])
     remember = BooleanField('Lembrar da senha')
     submit = SubmitField('Entrar')
+
+
     
     

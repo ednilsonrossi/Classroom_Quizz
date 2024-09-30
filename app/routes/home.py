@@ -10,10 +10,10 @@ home = Blueprint('home', __name__)
 def homepage():
     return render_template('home.html', title='Home')
 
-@home.route('/student')
+@home.route('/criar_quiz')
 @login_required
-def student_home():
-    return render_template('home_student.html', title='Home')
+def criar_quiz():
+    return(render_template('criar_quiz.html'))
 
 @home.route('/codigo_sala', methods=['GET', 'POST'])
 @login_required
