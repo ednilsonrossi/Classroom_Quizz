@@ -251,6 +251,84 @@ body{
     }
 }
 
+/* AREA CRIACAO DO QUIZ */
+.icon-title{
+    position: absolute;
+    right: 12px; /* Ajuste a posição horizontal */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta a posição para ficar centralizado */
+    font-size: 1.2em;
+    color: #162938;
+    pointer-events: none; /* Impede que o ícone receba eventos de clique */
+}
+
+.sidebar-questions{
+    position: fixed;
+    right: 0;
+    height: 100%;
+    width: auto;
+    padding-top: 20px;
+    background: #FFEBC6;
+    transition: width 0.3s;
+    z-index: 1020;
+    top: 56px;
+    height: calc(100vh - 56px); 
+    overflow-y: auto; 
+}
+.sidebar-questions .nav-link{
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px ;
+    color: black;
+}
+.sidebar-questions .description{
+    font-size: 16px;
+}
+.botao-remove{
+    background-color: #FF4848;;
+    border: 2px solid #fff;
+}
+.botao-remove:hover{
+    color: #fff;
+    background-color: #e04242;
+    transition: 0.6s;
+}
+.icon-quiz{
+    color: #ee9700;
+}
+
+.text-area{
+    max-height: 150px;
+}
+.main-content{
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    top: 70px;
+    height: calc(100vh - 56px); /* Altura da tela menos a navbar */
+    overflow-y: auto; /* Permite rolagem no conteúdo principal */
+    z-index: 1  ; /* Para garantir que o conteúdo fique atrás da navbar e do menu */
+    position: relative; /* Garante que o conteúdo fique no fluxo do layout */
+}
+
+@media(max-width: 700px){
+    .sidebar-questions{
+        width: 60px;
+    }
+    .sidebar-questions .description{
+        display: none;
+    }
+
+    .sidebar-questions .nav-link{
+       justify-content: center; 
+    }
+    .main-content{
+        margin-left: 60px;
+    }
+}
+
 /* AREA DE CODIGO DA SALA */
 .form-codigo{
     width:30%;
@@ -284,3 +362,5 @@ body{
         font-size: 20px;
     }
 }
+/* FIM CODIGO DA SALA */
+
