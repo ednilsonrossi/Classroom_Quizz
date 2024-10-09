@@ -14,7 +14,7 @@ class Users(db.Model, UserMixin):
     nome = db.Column(db.String(60), nullable=False)
     usuario = db.Column(db.String(26), unique=True, nullable=False)
     nascimento = db.Column(db.Date, nullable=True)
-
+    quiz = db.relationship('Quiz', backref='user_quiz', lazy=True)
     @property
     def cripto_pwd(self):
         return self.senha

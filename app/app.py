@@ -22,6 +22,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
+from models.users import Users
+from models.quiz import Quiz
+
 #Inicializando as extenções
 bcrypt.init_app(app)
 login_manager.init_app(app)
