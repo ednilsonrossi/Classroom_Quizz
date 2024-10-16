@@ -23,7 +23,9 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 from models.users import Users
+from models.bancoQuestoes import BancoQuestoes
 from models.quiz import Quiz
+from models.relatorio import RelatorioGeral, RelatorioPerguntas
 
 #Inicializando as extenções
 bcrypt.init_app(app)

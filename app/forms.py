@@ -57,7 +57,7 @@ class Login_Formulario(FlaskForm):
 # FORMULÁRIO CRIAÇÃO DO QUIZ
 
 class Respostas(FlaskForm):
-    resposta = StringField('Resposta', validators=[DataRequired(), Length(min=2, max=500)])
+    resposta = StringField('Resposta', validators=[DataRequired(), Length(min=2, max=300)])
     correta = BooleanField('Resposta Correta')
 
 class Criacao_Quiz(FlaskForm):
