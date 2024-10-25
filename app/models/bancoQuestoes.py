@@ -9,7 +9,7 @@ class BancoQuestoes(db.Model):
     descricao = db.Column(db.String(200), nullable=False)
 
     #Relacionamentos com as outras tabelas
-    perguntas = db.relationship('Pergunta', backref='bancoQuestoes', lazy=True)
+    perguntas = db.relationship('Perguntas', backref='bancoQuestoes', lazy=True)
 
     def __init__(self, user_id, pergunta, tipo_pergunta, descricao):
         self.user_id = user_id

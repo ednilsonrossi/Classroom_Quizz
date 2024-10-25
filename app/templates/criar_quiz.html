@@ -12,21 +12,14 @@
 <body class="vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark py-2 " style="background-color: #045008;z-index: 1030;">
         <div class="container">
-
           <a class="navbar-brand logo fw-bold" href="{{url_for('home.homepage')}}">Classroom Quiz</a>
-
           <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
           <div class=" sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-
             <div class="offcanvas-header text-white border-bottom">
-
               <h5 class="offcanvas-title fs-5 fw-bold" id="offcanvasNavbarLabel">Classroom Quiz</h5>
-
               <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-
             </div>
 
             <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
@@ -48,9 +41,23 @@
           </div>
         </div>
       </nav>
-      
-      <div class="sidebar-questions">
+
+      <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+      <div id="menu-question" class="sidebar-questions px-3 ">
         <nav class="nav flex-column">
+
+          <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
+
+          <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+            <button type="button" class='text-white text-decoration-none px-2 py-6 rounded-3 fs-6 btn btn-success botao-success'>
+              <span class="icon icon-quiz">
+                <i class="bi bi-database"></i>
+              </span>
+              <span class="description fs-6">Banco de Questões</span>
+            </button>
+          </div>
+
           <div class="nav-link">
             <span class="icon icon-quiz">
               <i class="fa-solid fa-circle-question"></i>
@@ -89,7 +96,7 @@
             <span class="description">Remover pergunta</span>
           </div>
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-            {{form.submit(class='text-white text-decoration-none px-4 py-6 rounded-4 fs-6 botao-remove')}}
+            <button type="button" class='text-white text-decoration-none px-4 py-6 rounded-4 fs-6 botao-remove'>Remover 1 caixa</button>
           </div>
 
       
@@ -99,20 +106,38 @@
             </span>
             <span class="description">Descrição</span>
           </div>
-          <div class="form-group">
+          <div class="form-group mb-2">
             {{ form.descricao(class='form-control form-control-sm text-area mb-2', rows=5, placeholder='Explique o tema desta pergunta.') }}
         </div>
 
         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-          {{form.submit(class='text-white text-decoration-none px-4 py-6 rounded-3 fs-5 botao-enter')}}
+          <button type="button" class='text-white text-decoration-none px-4 py-6 rounded-3 fs-6 botao-enter mb-2'>Outra pergunta</button>
         </div>
-
-
-
-      
-
         </nav>
       </div>
+
+      <button class="openbtn" onclick="toggleMenu()">&#9654;</button>
+
+      <script>
+        function openMenu() {
+            document.getElementById("menu-question").style.width = "250px";
+            document.getElementById("overlay").style.display = "block";
+        }
+    
+        function closeMenu() {
+            document.getElementById("menu-question").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+    
+        function toggleMenu() {
+            const menu = document.getElementById("menu-question");
+            if (menu.style.width === "250px") {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/dc0e123cae.js" crossorigin="anonymous"></script>

@@ -9,15 +9,17 @@ class RelatorioGeral(db.Model):
     pontuacao_total = db.Column(db.Integer, nullable=False)
     tempo_total = db.Column(db.Integer, nullable=False)
     feedback = db.Column(db.String(250), nullable=False)
-    # feedback = db.Column(db.String(250), nullable=False)
+    ranking = db.Column(db.Integer, nullable=True)
+
     #Relacionamentos com as outras tabelas
     relatorio_perguntas = db.relationship('RelatorioPerguntas', backref='relatorio_geral', lazy=True)
 
-    def __init__(self, quiz_id, pontuacao_total, tempo_total, feedback, jogador_id=None, jogador=None,):
+    def __init__(self, quiz_id, pontuacao_total, tempo_total, feedback, ranking, jogador_id=None, jogador=None ):
         self.quiz_id = quiz_id
         self.pontuacao_total = pontuacao_total
         self.tempo_total = tempo_total
         self.feedback = feedback
+        self.ranking = ranking
         self.jogador_id = jogador_id
         self.jogador = jogador
 
@@ -25,7 +27,7 @@ class RelatorioPerguntas(db.Model):
     __tablename__ = 'relatorioPerguntas'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     relatorio_id = db.Column(db.Integer, db.ForeignKey('relatorioGeral.id'), nullable=False)
-    perguntas_id = db.Column(db.Integer, db.ForeignKey('pergunta.id'), nullable=False)
+    perguntas_id = db.Column(db.Integer, db.ForeignKey('perguntas_quiz.id'), nullable=False)
     resposta = db.Column(db.String(300), nullable=False)
     correta = db.Column(db.Boolean, default=False)
 
