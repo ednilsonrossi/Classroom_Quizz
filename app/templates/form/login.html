@@ -5,11 +5,11 @@
     <form action="" method="post" class="form-default mx-auto">
         {{ form.hidden_tag() }}
         <h3 class="text-center title-form">Login</h3>
-        <div class="mb-4 mt-5">
+        <div class="mb-4 mt-4">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class='alert alert-{{category}} alert-dismissible fade-show role='alert'>
+                        <div class='alert alert-{{category}} alert-dismissible fade-show role='alert''>
                             <button
                             type="button"
                             class="btn btn-close"
@@ -53,7 +53,7 @@
                 {{form.remember(class='form-check-input d-flex justify-content-center align-items-center ')}}
             </div>
             <div class="form-check col-auto">
-                <a href="" class="form-text text-primary">Esqueceu sua senha?</a>
+                <a href="{{url_for('login.reset_request')}}" class="form-text text-primary">Esqueceu sua senha?</a>
             </div>
         </div>
         {{form.submit(class=' mb-4 btn btn-primary mt-4')}}

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <form action="" method="post" class="form-default mx-auto">
         {{ form.hidden_tag() }}
-        <h3 class="text-center title-form">Cadastre-se</h3>
+        <h3 class="text-center title-form">Redefinir Senha</h3>
         <div class="mb-4 mt-4">
 
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -17,19 +17,6 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-
-            {% if form.email.errors %}
-                <span class='icon-form'><ion-icon name="mail"></ion-icon></span>
-                {{form.email(class='form-control is-invalid alert-danger')}}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                        <span>{{error}}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <span class='icon-form'><ion-icon name="mail"></ion-icon></span>
-                {{form.email(class='form-control', placeholder='Seu e-mail')}}
-            {% endif %}
         </div>
 
         <div class="mb-4">

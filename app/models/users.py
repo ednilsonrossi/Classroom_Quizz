@@ -1,6 +1,9 @@
+from itsdangerous import URLSafeTimedSerializer as Serializer
+from flask import current_app #Usado para pegar os dados de onde a aplicação flask foi instanciada, no caso app.py
 from utils.db import db
 from utils.extensions import bcrypt, login_manager
 from flask_login import UserMixin
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -20,6 +23,19 @@ class Users(db.Model, UserMixin):
     bancoQuestoes = db.relationship('BancoQuestoes', backref='bq_users', lazy=True)
     relatorios = db.relationship('RelatorioGeral', backref='relatorio_users', lazy=True)
     
+    def get_reset_token(self, expire_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id})
+    
+    @staticmethod # não precisa de um objeto (instância). Útil para funções relacionadas à classe, mas que não usam 'self'. Pertence à classe, mas não depende de nenhuma instância específica dela.
+    def verify_reset_token(token, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+             user_id = s.loads(token, max_age=expires_sec)['user_id']
+        except:
+            return None
+        return Users.query.get(user_id)
+        
     @property
     def cripto_pwd(self):
         return self.senha

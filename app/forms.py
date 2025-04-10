@@ -54,6 +54,28 @@ class Login_Formulario(FlaskForm):
     remember = BooleanField('Lembrar da senha')
     submit = SubmitField('Entrar')
 
+# SOLICITAÇÃO DE REDEFINIÇÃO DE SENHA
+class RequestResetForm(FlaskForm):
+    email = EmailField('E-mail',
+                        validators=[DataRequired(), Email(), Length(max=256)])
+    submit = SubmitField('Redefinição de Senha')
+
+    def validate_email(self, check_email):
+        email = Users.query.filter_by(email=check_email.data).first()
+        if email is None:
+            raise ValidationError('Não existe uma conta com esse email. Registre-se primeiro.')
+        
+class ResetPasswordForm(FlaskForm):
+    senha = PasswordField('Senha',
+                          validators=[DataRequired(), Length(min=8, max=50)])
+    confirm_senha = PasswordField('Confirme a senha',
+                          validators=[DataRequired(), EqualTo('senha')])
+    
+    submit = SubmitField('Redefinir Senha')
+
+
+
+
 # FORMULÁRIO CRIAÇÃO DO QUIZ
 
 class Respostas(FlaskForm):
@@ -67,7 +89,7 @@ class Criacao_Quiz(FlaskForm):
                                 [('escolha unica', 'Escolha única'), ('verdadeiro ou falso', 'Verdadeiro ou Falso'), ('correção', 'Correção')])
     tempo = IntegerField('Tempo',
                           default=30,
-                          validators=[DataRequired(), NumberRange(min=30, max=900, message="O número deve estar entre 30 e 900 segundos.")])
+                          validators=[DataRequired(), NumberRange(min=30, max=480, message="O número deve estar entre 30 e 480 segundos.")])
     pontos = IntegerField('Pontos',
                           default=10,
                           validators=[DataRequired(), NumberRange(min=10, max=100, message="O número deve estar entre 10 e 100 pontos.")])

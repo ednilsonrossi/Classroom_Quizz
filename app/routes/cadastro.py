@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, session
 from datetime import datetime
-from forms import Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2, Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4
+from forms import (Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2,
+                    Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4)
 from models.users import Users
 from utils.db import db
 from flask_login import login_user
@@ -20,6 +21,11 @@ def cadastro_01():
 
 @cadastro.route('/ocupacao', methods=['GET', 'POST'])
 def cadastro_02():
+
+    if ('email' not in session) or ('senha' not in session):
+        flash(f'Por favor preencha os dados!', 'warning' )
+        return redirect(url_for('cadastro.cadastro_01'))
+
     form = Cadastro_Formulario_Pagina2()
     if form.validate_on_submit():
         session['tipo_conta'] = form.tipo_conta.data
@@ -33,6 +39,11 @@ def cadastro_02():
 
 @cadastro.route('/ocupacao/idade', methods=['GET', 'POST'])
 def cadastro_03():
+
+    if ('email' not in session) or ('senha' not in session) or ('tipo_conta' not in session):
+        flash(f'Por favor preencha os dados!', 'warning' )
+        return redirect(url_for('cadastro.cadastro_01'))
+     
     form = Cadastro_Formulario_Pagina3()
     if form.validate_on_submit():
         session['nascimento'] = form.nascimento.data
@@ -42,6 +53,12 @@ def cadastro_03():
 
 @cadastro.route('/ocupacao/idade/info', methods=['GET', 'POST'])
 def cadastro_04():
+
+    if session.get('tipo_conta') == 'aluno':
+        if ('email' not in session) or ('senha' not in session) or ('tipo_conta' not in session) or ('nascimento' not in session):
+            flash(f'Por favor preencha os dados!', 'warning' )
+            return redirect(url_for('cadastro.cadastro_01'))
+    
     form = Cadastro_Formulario_Pagina4()
     if form.validate_on_submit():
         dados_usuario = {

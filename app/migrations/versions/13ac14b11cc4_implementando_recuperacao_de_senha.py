@@ -1,8 +1,8 @@
-"""Novas tabelas conforme DER atualizado
+"""Implementando recuperacao de senha
 
-Revision ID: dd6d0075386f
+Revision ID: 13ac14b11cc4
 Revises: 
-Create Date: 2024-10-24 23:44:15.125087
+Create Date: 2025-04-10 05:23:43.419840
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dd6d0075386f'
+revision = '13ac14b11cc4'
 down_revision = None
 branch_labels = None
 depends_on = None
