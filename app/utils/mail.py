@@ -7,7 +7,7 @@ def send_reset_email(user):
     token = user.get_reset_token()
 
     msg = EmailMessage()
-    msg['Subject'] = 'Redefinição de Senha'
+    msg['Subject'] = 'Redefinição de Senha - Classroom Quiz'
     msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
     msg['To'] = user.email
     msg.set_content(
