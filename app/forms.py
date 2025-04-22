@@ -59,10 +59,11 @@ class RequestResetForm(FlaskForm):
     email = EmailField('E-mail',
                         validators=[DataRequired(), Email(), Length(max=256)])
     submit = SubmitField('Redefinição de Senha')
-
+    
+    #USADO SOMENTE PARA TESTE, EM UMA APLICAÇÃO FUNCIONAL, DEVERÁ SER RETIRADO
     def validate_email(self, check_email):
         email = Users.query.filter_by(email=check_email.data).first()
-        if email is None:
+        if email is None: 
             raise ValidationError('Não existe uma conta com esse email. Registre-se primeiro.')
         
 class ResetPasswordForm(FlaskForm):

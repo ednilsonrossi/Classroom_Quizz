@@ -38,7 +38,7 @@ def reset_request():
     if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('Um email foi enviado com as instruções para a redefinição de sua senha.', 'warning')
+        flash('Um email foi enviado com as instruções. Caso não encontre, verifique a caixa de SPAM', 'warning')
         return redirect(url_for('login.login_usuario'))
     return render_template('form/reset_request.html', title='Redefinição de Senha', form=form)
 
