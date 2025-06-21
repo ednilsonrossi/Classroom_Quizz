@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, session
-from datetime import datetime
+from datetime import datetime, timezone
 from forms import (Cadastro_Formulario_Pagina1, Cadastro_Formulario_Pagina2,
                     Cadastro_Formulario_Pagina3, Cadastro_Formulario_Pagina4)
 from models.users import Users
@@ -67,7 +67,8 @@ def cadastro_04():
             'tipo_conta': session.get('tipo_conta'),
             'nome': form.nome.data,
             'usuario': form.usuario.data,
-            'nascimento': session.get('nascimento')
+            'nascimento': session.get('nascimento'),
+            'created_at': datetime.now(timezone.utc)
         }
         #Esta parte irá transformar o dado nascimento de String em um formato de Date
         dados_usuario['nascimento'] = datetime.strptime(dados_usuario['nascimento'], "%a, %d %b %Y %H:%M:%S %Z")if dados_usuario['nascimento'] else None
