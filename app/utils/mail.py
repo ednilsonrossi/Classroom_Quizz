@@ -5,6 +5,49 @@ from models.users import Users
 from datetime import datetime
 import pytz
 
+def send_confirm_email(user):
+    token = user.get_confirmation_token()
+
+    msg = EmailMessage()
+    msg['Subject'] = f'Confirmação de Email - Classroom Quiz'
+    msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
+    msg['To'] = user.email
+    msg.set_content(
+        f''' Olá {user.nome}!
+    
+Para confirmar seu e-mail, acesse o link: 
+        
+{url_for('cadastro.confirm_token', token=token, _external=True)}
+
+        
+Se você não solicitou isso, ignore este e-mail.
+''')
+    
+    #Tipo de email alternativo, caso o dispositivo aceite arquivo html
+    msg.add_alternative(f"""
+<html>
+  <body>
+    <p>Olá <strong>{user.nome}</strong>!</p>
+
+    <p>Para confirmar seu e-mail, acesse o link:</p>
+
+    <p><a href="{url_for('cadastro.confirm_token', token=token, _external=True)}">Confirmar e-mail</a></p>
+
+    <p>Se você não solicitou isso, ignore este e-mail.</p>
+  </body>
+</html>
+""", subtype='html')
+    
+    EMAIL = current_app.config['MAIL_USERNAME']
+    SENHA = current_app.config['MAIL_PASSWORD']
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.starttls()                     
+        smtp.login(EMAIL, SENHA)         
+        smtp.send_message(msg)          
+
+    print('E-mail enviado com sucesso!')
+
 def send_reset_email(user):
     token = user.get_reset_token()
 
@@ -27,7 +70,6 @@ Para redefinir sua senha, acesse o link:
 Se você não solicitou isso, ignore este e-mail.
 ''')
     
-    #Tipo de email alternativo, caso o dispositivo aceite arquivo html
     msg.add_alternative(f"""
 <html>
   <body>
