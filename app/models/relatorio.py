@@ -1,7 +1,7 @@
 from utils.db import db
 
 class RelatorioGeral(db.Model):
-    __tablename__ = 'relatorioGeral'
+    __tablename__ = 'relatoriogeral'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     jogador_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
@@ -12,7 +12,7 @@ class RelatorioGeral(db.Model):
     ranking = db.Column(db.Integer, nullable=True)
 
     #Relacionamentos com as outras tabelas
-    relatorio_perguntas = db.relationship('RelatorioPerguntas', backref='relatorio_geral', lazy=True)
+    relatorio_perguntas = db.relationship('relatorioperguntas', backref='relatorio_geral', lazy=True)
 
     def __init__(self, quiz_id, pontuacao_total, tempo_total, feedback, ranking, jogador_id=None, jogador=None ):
         self.quiz_id = quiz_id
@@ -24,9 +24,9 @@ class RelatorioGeral(db.Model):
         self.jogador = jogador
 
 class RelatorioPerguntas(db.Model):
-    __tablename__ = 'relatorioPerguntas'
+    __tablename__ = 'relatorioperguntas'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    relatorio_id = db.Column(db.Integer, db.ForeignKey('relatorioGeral.id'), nullable=False)
+    relatorio_id = db.Column(db.Integer, db.ForeignKey('relatoriogeral.id'), nullable=False)
     perguntas_id = db.Column(db.Integer, db.ForeignKey('perguntas_quiz.id'), nullable=False)
     resposta = db.Column(db.String(300), nullable=False)
     correta = db.Column(db.Boolean, default=False)
