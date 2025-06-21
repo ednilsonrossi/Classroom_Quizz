@@ -2,12 +2,18 @@ import smtplib
 from email.message import EmailMessage
 from flask import current_app, url_for
 from models.users import Users
+from datetime import datetime
+import pytz
 
 def send_reset_email(user):
     token = user.get_reset_token()
 
+    tz_brasilia = pytz.timezone('America/Sao_Paulo')
+    hora_brasil = datetime.now(tz_brasilia)
+    date = hora_brasil.strftime("%d/%m/%Y - %H:%M:%S")
+
     msg = EmailMessage()
-    msg['Subject'] = 'Redefinição de Senha - Classroom Quiz'
+    msg['Subject'] = f'Redefinição de Senha {date} - Classroom Quiz'
     msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
     msg['To'] = user.email
     msg.set_content(
@@ -45,3 +51,4 @@ Se você não solicitou isso, ignore este e-mail.
         smtp.send_message(msg)          
 
     print('E-mail enviado com sucesso!')
+
