@@ -16,6 +16,10 @@ def login_usuario():
     if form.validate_on_submit():
         usuario_logado = Users.query.filter_by(email = form.email.data).first()
         if usuario_logado and usuario_logado.conversor_pwd(senha_descripto=form.senha.data):
+            if not usuario_logado.confirm_user:
+                flash('Por favor, confirme seu e-mail antes de fazer login.', 'warning')
+                return redirect(url_for('cadastro.confirm_email_request'))
+         
             login_user(usuario_logado)
             flash(f'Sucesso! Seja bem-vindo {usuario_logado.nome}', category='success')
             return redirect(url_for('home.homepage'))

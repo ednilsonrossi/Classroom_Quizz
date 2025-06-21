@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <form action="{{ url_for('cadastro.resent_confirm') }}" method="post" class="form-default mx-auto">
+        <h3 class="text-center title-form">Confirmação de e-mail enviada!</h3>
+
+        <div class="mb-4 mt-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+        <div class="mt-5 mb-2">
+            <button type="submit" class="btn btn-primary w-100">Reenviar e-mail</button>
+        </div>
+    </form>
+</div>
+{% endblock conteudo %}

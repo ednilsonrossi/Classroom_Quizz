@@ -12,7 +12,7 @@ class RelatorioGeral(db.Model):
     ranking = db.Column(db.Integer, nullable=True)
 
     #Relacionamentos com as outras tabelas
-    relatorio_perguntas = db.relationship('relatorioperguntas', backref='relatorio_geral', lazy=True)
+    relatorio_perguntas = db.relationship('RelatorioPerguntas', backref='relatorio_geral', lazy=True)
 
     def __init__(self, quiz_id, pontuacao_total, tempo_total, feedback, ranking, jogador_id=None, jogador=None ):
         self.quiz_id = quiz_id
