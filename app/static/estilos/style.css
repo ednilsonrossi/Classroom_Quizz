@@ -1,44 +1,66 @@
-/* body{
-    background: url(../img/lousa.jpeg) rgba(0, 0, 0, 0.3);
-    background-blend-mode: multiply;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    
-} */
+:root {
+    --bg-fundo: #E9F5EA;        
+    --bg-navbar: #045008;
+    --bg-about: #e8f5e9;
+    --bg-warning-action: #ffb638;    
+    --bg-warning-action-hover: #ee9700;
+    --bg-light-grey: #f9fafb;
+
+    --color-about: #1b5e20;
+    --color-green-link: #4caf50;      
+}
+:root {
+  /* Verdes principais POR ENQUANTO ESSAS CORES SÃO TESTES! */
+  --brand-green: #06613D;       /* Verde médio principal (botões, destaques) */
+  --brand-green-dark: #044A2E;  /* Verde pântano (footer, header) */
+  --brand-green-light: #0A7F52; /* Hover e detalhes mais vivos */
+
+  /* Texto */
+  --text-light: #ffffff;  /* Texto claro em fundo escuro */
+  --text-dark: #222222;   /* Texto escuro em fundo claro */
+  --text-muted: #e4e4e4;  /* Texto levemente apagado no footer */
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
 body{
-    background: #ffd997;
-}
-/* }
-.bloco1{
-    height: 100vh;
-    background-image: url(../img/lousa.jpeg);
-    background-blend-mode: multiply;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: var(--bg-fundo);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.bloco1_1{
-    width: 456px;
-    height: 400px;
-    
-} */
+/* NAVBAR */
+.navbar{
+    background-color: var(--bg-navbar);
+}
+@media (max-width: 991.98px) {
+    #navbarNav.collapse.show .navbar-nav {
+        padding-right: 0 !important;
+    }
 
-/* MENU HOME-PAGE */
+    #navbarNav.collapse.show .navbar-nav .nav-item {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 0.75rem;
+    }
+}
 @media(max-width: 991px){
     .sidebar{
-        background-color: #045008;
+        background-color: var(--bg-navbar);
         backdrop-filter: blur(10px);
     }
 }
-.botao-enter{
-    background-color: #ffb638;
+.btn-warning-action{
+    background-color: var(--bg-warning-action);
     border: 2px solid #fff;
 }
-.botao-enter:hover{
+.btn-warning-action:hover{
     color: #fff;
-    background-color: #ee9700;
+    background-color: var(--bg-warning-action-hover);
     transition: 0.6s;
 }
 .logo{
@@ -47,12 +69,153 @@ body{
     letter-spacing: 2px;
     color: #fff;
 }
+
+/* MENU HOME-PAGE */
+
+/* Apresentação e Código da Sala */
+.hero-section {
+    background: linear-gradient(135deg, #1f5d2c, #2f8d4e);
+    color: white;
+    padding: 6rem 1rem 4rem;
+    text-align: center;
+}
+.hero-section h1 {
+    font-weight: 900;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.hero-section p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+@media (max-width: 991px) and (min-width: 801px) {
+    .hero-section h1 { font-size: 2.5rem; }
+    .hero-section p { font-size: 1.1rem; }
+}
+@media (max-width: 800px) {
+    .hero-section h1 { font-size: 2rem; }
+    .hero-section p { font-size: 1rem; }
+    .hero-section .col-md-6 { text-align: center !important; }
+    .hero-section .d-flex { justify-content: center !important; }
+
+    .hero-section input.form-control { width: 100% !important; }
+}
+
+/* Destaques */
+#destaques{
+    background-color: var(--bg-light-grey);
+}
+.emphasis-card .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.emphasis-card .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.emphasis-card .card-body {
+    padding: 2rem 1.5rem;
+}
+@media (max-width: 576px) {
+    .emphasis-card .fs-1 {
+        font-size: 2.5rem;
+    }
+    .emphasis-card h5 {
+        font-size: 1.1rem;
+    }
+    .emphasis-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Sobre */
+.about-section {
+    background-color: var(--bg-about);
+    color: var(--color-about);
+}
+
+.about-section p {
+    max-width: 75%;
+    min-width: 300px;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+    .about-section p {
+        font-size: 1rem;
+}
+}
+
+/* Contato */
+.contact-section {
+    background-color: var(--bg-light-grey); 
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+    color: var(--color-about);
+}
+.contact-info {
+    background-color: var(--bg-about);
+}
+.contact-section a {
+    color: var(--color-green-link);
+    text-decoration: underline;
+}
+.contact-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* Footer */
+footer{
+    background-color: var(--brand-green-dark);
+}
+.footer-row {
+    gap: 5rem;
+}
+.footer-row ul li {
+    margin-bottom: 0.5rem;
+}
+.footer-row ul {
+    line-height: 1.8; 
+}
+.footer-row ul li a{
+    color: var(--text-light);
+}
+.footer-row ul li a:hover{
+    color: var(--text-muted);
+}
+footer .copyright {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem 0;
+}
+@media (max-width: 576px) {
+    footer .btn {
+        margin-bottom: 0.4rem;
+    }
+    .footer-row {
+        gap: 1rem;
+    }
+    .footer-row h5 {
+        margin-bottom: 1rem;
+    }
+    .footer-row ul li {
+        margin-bottom: 0.3rem;
+    }
+    .footer-row .col-lg-2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: left;
+    }
+    .footer-row .col-lg-2 ul {
+        padding-left: 0;
+    }
+}
+
 /* FIM MENU HOMEPAGE */
 
 /*Área LOGIN*/
 .form-default{
     width:30%;
-    background-color: #f5ffc7;
+    background-color: #d9ead3;
     padding: 50px;
     border-radius: 20px;
     margin-top: 60px; 
@@ -130,7 +293,7 @@ body{
     justify-content: center; 
     color: white;       
     font-size: 2rem;   
-    background-color: #ffb638;
+    background-color: var(--bg-warning-action);
 }
 .card-title{
     margin-top: 15px;
@@ -220,7 +383,7 @@ body{
 }
 
 .sidebar-menuv .nav-link:hover{
-    background-color: #ee9700;
+    background-color: var(--bg-warning-action-hover);
     color: #fff;
 }
 
