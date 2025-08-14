@@ -30,7 +30,6 @@ def login_usuario():
 @login.route('/logout')
 def logout_usuario():
     logout_user()
-    flash(f'Você fez o logout!', category='info')
     return redirect(url_for('init.home'))
 
 @login.route('/reset_password', methods=['GET', 'POST'])

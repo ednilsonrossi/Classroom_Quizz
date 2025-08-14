@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from utils.extensions import bcrypt, login_manager
 from utils.dump import gerar_dump_usuarios
 from routes.cadastro import cadastro
-from routes.welcome import init
+from routes.home_public import init
 from routes.login import login
 from routes.home import home
 from routes.jogo import jogo
