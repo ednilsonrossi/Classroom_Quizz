@@ -5,9 +5,10 @@ from models.users import Users
 
 #Formulário do Código da Turma
 class Pagina_Insercao_Codigo(FlaskForm):
-    codigo = StringField('codigo',
-                          validators=[DataRequired(), Length(min=6, max=6)])
-    submit = SubmitField('Entrar')
+    codigo = StringField('Código da sala',
+                        render_kw={"placeholder": "Digite o código da sala", "autofocus": True, "autocomplete": "off"},
+                        validators=[DataRequired(), Length(min=6, max=6)])
+    submit = SubmitField('Jogar')
 
 #Formulário do cadastro
 class Cadastro_Formulario_Pagina1(FlaskForm):
@@ -42,7 +43,7 @@ class Cadastro_Formulario_Pagina4(FlaskForm):
     usuario = StringField('Usuário',
                             validators=[DataRequired(), Length(min=2, max=26)])
     nome = StringField('Nome',
-                          validators=[DataRequired(), Length(min=2, max=60)])
+                          validators=[DataRequired(), Length(min=2, max=50)])
     submit = SubmitField('Enviar')
     
 #FORMULÁRIO DO LOGIN
