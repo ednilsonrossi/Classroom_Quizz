@@ -1,46 +1,215 @@
 {% extends 'base.html' %}
 
-{% block conteudo%}
+{% block conteudo %}
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class='alert alert-{{category}} alert-dismissible fade-show role='alert'>
-                <button
-                type="button"
-                class="btn btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close">
-                </button>
-                {{message}}
-            </div>
-        {% endfor %}
-    {% endif %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class='alert alert-{{category}} alert-dismissible fade-show' role='alert'>
+                    <button
+                    type="button"
+                    class="btn btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+                    </button>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
     {% endwith %}
 
-    <div class="bloco1">
-        <div class="bloco1_1">
-            <h2 class="logo">Olá seja bem-vindo ao Classroom Quiz!</h2>
-            <p class="text-bloco1">Aventure-se neste mundo de diversões jogando agora mesmo.</p>
-            <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <div class="grupo-form">
-                    {{form.codigo(class='control-form', placeholder='Código da sala')}}
+<!-- Apresentação do Jogo -->
+<section class="hero-section text-center" id='inicio'>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-md-start">
+                <h1>Olá, seja bem-vindo ao Classroom Quiz!</h1>
+                <p>Aventure-se neste mundo de diversões jogando agora mesmo.</p>
+                <div class="d-flex gap-2 justify-content-md-start justify-content-center">
+                    <form action="{{ url_for('login.login_usuario') }}" method="POST" class="d-flex gap-2">
+                        {{ form.hidden_tag() }}
+                        {% if form.codigo.errors %}
+                            {{ form.codigo(class='form-control w-auto is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form.codigo.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.codigo(class='form-control w-auto') }}
+                        {% endif %}
+                        {{ form.submit(class='btn btn-warning-action text-white rounded-3') }}
+                    </form>
                 </div>
-                <div class="grupo-form">
-                    {{form.submit(class='botao-login')}}
-                </div>
-            </form>
+            </div>
+
+            <div class="col-md-6 mt-4 mt-md-0">
+                <h2>Aproveite ao máximo sua conta!</h2>
+                <p>Crie sua conta Classroom Quiz e tenha acesso a relatórios, criação de jogos e a opção de jogar novamente.</p>
+            </div>
         </div>
     </div>
-    <div class="bloco1"></div>
+</section>
 
-    <div class="bloco2">
-        <h2>Sobre</h2>
-        <h2>Contato</h2>
+<!-- Destaques -->
+<section class="py-5" id="destaques">
+    <div class="container">
+        <h2 class="text-center fw-bold text-success mb-5">Por que escolher o Classroom Quiz?</h2>
+        <div class="row g-4 justify-content-center align-items-stretch">
         
+            <div class="col-md-3 col-sm-6 emphasis-card">
+                <div class="card text-center shadow-sm h-100 border-0 rounded-4">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <div class="fs-1 mb-3 text-success">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h5 class="fw-bold text-success mb-2">Estudo Divertido</h5>
+                    <p class="text-muted mb-0">Aprenda de forma mais interativa e motivadora através de quizzes gamificados.</p>
+                </div>
+                </div>
+            </div>
 
+            <div class="col-md-3 col-sm-6 emphasis-card">
+                <div class="card text-center shadow-sm h-100 border-0 rounded-4">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <div class="fs-1 mb-3 text-success">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h5 class="fw-bold text-success mb-2">Feedback Imediato</h5>
+                    <p class="text-muted mb-0">Saiba na hora o que acertou e receba explicações para melhorar seu aprendizado.</p>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 emphasis-card">
+                <div class="card text-center shadow-sm h-100 border-0 rounded-4">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <div class="fs-1 mb-3 text-success">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+                    <h5 class="fw-bold text-success mb-2">Relatórios Completos</h5>
+                    <p class="text-muted mb-0">Professores acompanham o desempenho da turma com dados detalhados e gráficos.</p>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 emphasis-card">
+                <div class="card text-center shadow-sm h-100 border-0 rounded-4">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <div class="fs-1 mb-3 text-success">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </div>
+                    <h5 class="fw-bold text-success mb-2">Quizzes Personalizados</h5>
+                    <p class="text-muted mb-0">Crie quizzes com diferentes níveis, tempo e pontuação para cada pergunta.</p>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>  
+</section>
+
+<!-- Sobre -->
+<section id="sobre" class="about-section py-5 text-center">
+    <div class="container">
+        <h2 class="fw-bold mb-3">Sobre o Classroom Quiz</h2>
+        <p class="mx-auto fs-5 px-3">
+            Projeto desenvolvido como Iniciação Científica no IFSP Araraquara, com o objetivo de aprimorar a experiência de professores e alunos, unindo aprendizado e diversão. A plataforma promove um ambiente mais imersivo, motivador e participativo por meio de jogos educacionais. O sistema é disponibilizado como software livre, permitindo uso e adaptações.
+        </p>
     </div>
+</section>
+
+<!-- Contato -->
+<section id="contato" class="contact-section py-5">
+    <div class="container">
+        <h3 class="text-center fw-bold mb-3">Contato</h3>
+        <p class="text-center mb-5 mx-auto">
+            Estamos sempre procurando melhorar a sua experiência em nosso jogo! Nos dê o seu feedback, relatando sua experiência ao jogar, sua opinião é importante para nós.
+        </p>
+        <div class="row g-4">
+            <div class="col-md-5">
+                <div class="contact-info p-4 rounded">
+                    <h5 class="fw-bold mb-2">Como Falar Conosco</h5>
+                    <p>Envie um comentário ou e-mail. Estamos sempre prontos para responder.</p>
+                    <strong>Nosso e-mail:</strong><br>
+                    <a href="mailto:usuario@gmail.com">equipe.classroomquiz@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="contact-info p-4 rounded d-flex justify-content-center">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Seu nome" minlength="3" maxlength="50" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Seu e-mail" maxlength="256" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="subject" placeholder="Assunto" minlength="5" maxlength="100" required>
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control" rows="4" placeholder="Insira sua mensagem" minlength="10" maxlength="500" required></textarea>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-white pt-5">
+    <div class="container">
+        <div class="row gy-4 gx-5 footer-row justify-content-center">
+
+            <div class="col-lg-5 col-md-12">
+                <h5 class="mb-3 fs-2">Sobre o Sistema</h5>
+                <p>
+                    O Classroom Quiz é um sistema gamificado de perguntas e respostas, desenvolvido como Iniciação Científica no IFSP Araraquara. É <strong>software livre</strong>, permitindo que você acesse o código-fonte e contribua com melhorias a partir da plataforma GitHub
+                </p>
+                <p>
+                    Desenvolvido por <strong>Samuel Fernandes Filho</strong> sob orientação de <strong>Ednilson Geraldo Rossi</strong> e <strong> Janaína Cintra Abib</strong>.
+                </p>
+                <div class="d-flex gap-2 mt-3">
+                    <a href="https://github.com/ednilsonrossi/Classroom_Quizz" class="btn btn-warning-action btn-sm" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+                    <a href="https://linktr.ee/samuel_fernandesf" class="btn btn-outline-light btn-sm">Samuel</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">Ednilson</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">Janaína</a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-6">
+                <h5 class="mb-3">Links Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#inicio" class="text-decoration-none">Início</a></li>
+                    <li><a href="#destaques" class="text-decoration-none">Destaques</a></li>
+                    <li><a href="#sobre" class="text-decoration-none">Sobre</a></li>
+                    <li><a href="#contato" class="text-decoration-none">Contato</a></li>
+                    <li><a href="https://labtecifsp.wordpress.com" class="text-decoration-none" target="_blank">LabTec</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-12">
+                <h5 class="mb-3">Entre em Contato</h5>
+                <p><strong>Email:</strong> <a href="mailto:samuelfernandesfilho2007@gmail.com" class="text-white text-decoration-none"> samuelfernandesfilho2007@gmail.com</a></p>
+                <p><strong>Endereço:<br></strong><span> Rua Doutor Aldo Benedito Pierri, 250 - Jardim Paulo Freire, Araraquara - SP, 14804-296</span></p>
+                <p><strong>Telefone:</strong><span> (16) 3303-2330</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center mt-4 copyright">
+        <p class="mb-0">&copy; 2025 Classroom Quiz - Todos os direitos reservados</p>
+        <small>Software livre para estudo, pesquisa e contribuição da comunidade.</small>
+    </div>
+</footer>
+
 {%endblock conteudo%}
 </body>
 </html>
