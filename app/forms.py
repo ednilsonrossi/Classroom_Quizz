@@ -52,7 +52,6 @@ class Login_Formulario(FlaskForm):
                             validators=[DataRequired(), Email(), Length(max=256)])
     senha = PasswordField('Senha',
                           validators=[DataRequired(), Length(min=8, max=50)])
-    remember = BooleanField('Lembrar da senha')
     submit = SubmitField('Entrar')
 
 # SOLICITAÇÃO DE REDEFINIÇÃO DE SENHA
