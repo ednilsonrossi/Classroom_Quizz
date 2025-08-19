@@ -1,54 +1,50 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<div class="container-fluid">
-    <form action="" method="post" class="form-default mx-auto">
+<div class="container d-flex justify-content-center mt-5">
+    <form action="" method="post" class="form-default w-100 mx-auto">
         {{ form.hidden_tag() }}
-        <h3 class="text-center title-form">Redefinir Senha</h3>
-        <div class="mb-4 mt-4">
+        <h3 class="text-center title-form mb-4">Redefinir Senha</h3>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-        <div class="mb-4">
+        <div class="input-group mb-3">
+            <span class='input-group-text fs-5'><ion-icon name="lock-closed"></ion-icon></span>
             {% if form.senha.errors %}
-                <span class='icon-form'><ion-icon name="lock-closed"></ion-icon></span>
-                {{form.senha(class='form-control is-invalid alert-danger')}}
+                {{form.senha(class='form-control is-invalid py-3')}}
                 <div class="invalid-feedback">
                     {% for error in form.senha.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon-form'><ion-icon name="lock-closed"></ion-icon></span>
-                {{form.senha(class='form-control', placeholder='Sua senha')}}
+                {{form.senha(class='form-control py-3', placeholder='Sua senha')}}
             {% endif %}
         </div>
 
-        <div class="mb-3">
+        <div class="input-group mb-3">
+            <span class='input-group-text fs-5'><ion-icon name="key"></ion-icon></span>
             {% if form.senha.errors %}
-                <span class='icon-form'><ion-icon name="key"></ion-icon></span>
-                {{form.confirm_senha(class='form-control is-invalid alert-danger')}}
+                {{form.confirm_senha(class='form-control is-invalid py-3')}}
                 <div class="invalid-feedback">
                     {% for error in form.confirm_senha.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon-form'><ion-icon name="key"></ion-icon></span>
-                {{form.confirm_senha(class='form-control', placeholder='Confirme a senha')}}
+                {{form.confirm_senha(class='form-control py-3', placeholder='Confirme a senha')}}
             {% endif %}
         </div>
-        {{form.submit(class=' btn btn-primary mt-4')}}
+        {{form.submit(class='btn btn-green-action w-100 text-white rounded-5 fs-5 mt-3')}}
     </form>
 </div>
 {% endblock conteudo %}
