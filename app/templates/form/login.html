@@ -1,64 +1,63 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<div class="container-fluid">
-    <form action="" method="post" class="form-default mx-auto">
+<div class="container d-flex justify-content-center mt-5">
+    <form action="" method="post" class="form-default w-100 mx-auto">
         {{ form.hidden_tag() }}
-        <h3 class="text-center title-form">Login</h3>
-        <div class="mb-4 mt-4">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class='alert alert-{{category}} alert-dismissible fade-show role='alert''>
-                            <button
-                            type="button"
-                            class="btn btn-close"
-                            data-bs-dismiss="alert"
-                            aria-label="Close">
-                            </button>
-                            {{message}}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-    
+        <h3 class="text-center title-form mb-4">Login</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class='alert alert-{{category}} alert-dismissible fade-show' role='alert'>
+                        <button
+                        type="button"
+                        class="btn btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close">
+                        </button>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="input-group mb-3">
+            <span class="input-group-text fs-5"><ion-icon name="mail"></ion-icon></span>
             {% if form.email.errors %}
-                {{form.email(class='form-control is-invalid alert-danger')}}
+                {{form.email(class='form-control is-invalid py-3')}}
                 <div class="invalid-feedback">
                     {% for error in form.email.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon-form'><ion-icon name="mail"></ion-icon></span>
-                {{form.email(class='form-control', placeholder='Seu e-mail')}}
+                {{form.email(class='form-control py-3', placeholder='Seu e-mail')}}
             {% endif %}
         </div>
-        <div class="mb-3">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text fs-5"><ion-icon name="lock-closed"></ion-icon></span>
             {% if form.senha.errors %}
-                {{form.senha(class='form-control is-invalid alert-danger')}}
+                {{form.senha(class='form-control is-invalid py-3')}}
                 <div class="invalid-feedback">
                     {% for error in form.senha.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                <span class='icon-form'><ion-icon name="lock-closed"></ion-icon></span>
-                {{form.senha(class='form-control', placeholder='Sua senha')}}
+                {{form.senha(class='form-control py-3', placeholder='Sua senha')}}
             {% endif %}
         </div>
-        <div class=" mb-3 row d-flex justify-content-center align-items-center" style="gap: 2px;">
-            <div class="form-check col-auto">
-                {{form.remember.label(class='form-text')}}
-                {{form.remember(class='form-check-input d-flex justify-content-center align-items-center ')}}
-            </div>
-            <div class="form-check col-auto">
-                <a href="{{url_for('login.reset_request')}}" class="form-text text-primary">Esqueceu sua senha?</a>
-            </div>
+
+        <div class="mb-3 text-center">
+            <small class='conta'>Esqueceu sua senha? <a href="{{url_for('login.reset_request')}}" class="fw-semibold">Redefinir</a></small>
         </div>
-        {{form.submit(class=' mb-4 btn btn-primary mt-4')}}
-        <div>
-            <small class='conta'>Não possui uma conta? <a href='{{url_for("cadastro.cadastro_01")}}'>Criar conta</a></small>
+
+        {{form.submit(class='btn btn-green-action w-100 py-3 mb-3 mt-3 text-white text-decoration-none rounded-5 fs-5')}}
+
+        <div class="text-center">
+            <small class='conta'>Não possui uma conta? <a href="{{url_for('cadastro.cadastro_01')}}" class='fw-semibold'>Criar conta</a><small>
         </div>
     </form>
 </div>
