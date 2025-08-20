@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'public_base.html' %}
 
 {% block conteudo %}
 <div class="container d-flex justify-content-center mt-5">
     <form action="{{ url_for('cadastro.resent_confirm') }}" method="post" class="form-default w-100 mx-auto">
-        <h3 class="text-center title-form mb-4">Confirmação de e-mail</h3>
+        <h3 class="text-center title-form mb-4 fs-3">Confirmação de e-mail</h3>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
