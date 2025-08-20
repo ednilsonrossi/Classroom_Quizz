@@ -1,5 +1,29 @@
 {% extends "home_base.html" %}
 
+{% block menuv %}
+{{ super() }}
+{% endblock menuv %}
 
+{% block conteudo %}
+<div class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+               {% for category, message in messages %}
+                  <div class='alert alert-{{category}} alert-dismissible fade-show role='alert''>
+                      <button
+                      type="button"
+                      class="btn btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close">
+                      </button>
+                      {{message}}
+                  </div>
+               {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam vitae dolor maxime, officia velit adipisci. Saepe autem alias maxime commodi sed voluptatibus libero esse illo, voluptates nisi doloribus! Molestias, reiciendis?Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam nam totam doloribus? Placeat a fugit recusandae expedita, id in excepturi aut labore rem at, possimus officia non minima doloremque ut!
+      </div>
+{% endblock conteudo %}
 </body>
 </html>
