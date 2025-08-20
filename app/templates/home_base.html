@@ -1,134 +1,120 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Quiz - {{title}} </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename="estilos/style.css")}}" text="style.css">
-    
+
+   <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
+
+   <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+
+  <!-- CSS Customizado -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos/style.css') }}"/>
 </head>
+
 <body class="vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark position-fixed w-100" style="background-color: #045008;z-index: 1030;">
-        <div class="container-fluid">
-            
-          <a class="navbar-brand logo fw-bold title" href="{{url_for('home.homepage')}}">Classroom Quiz</a>
+  
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm w-100">
 
-          <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <div class="container-fluid">
 
-          <div class=" sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <a class="navbar-brand fw-bold fs-3 logo" href="{{ url_for('home.homepage') }}">
+      Classroom Quiz
+    </a>
 
-            <div class="offcanvas-header text-white border-bottom">
+    <button class="navbar-toggler shadow-none border-0" 
+    type="button" 
+    data-bs-toggle="collapse" 
+    data-bs-target="#navbarNav"
+    aria-controls="navbarNav" 
+    aria-expanded="false" 
+    aria-label="Alternar navegação">
+    <span class="navbar-toggler-icon"></span>
+    </button>
 
-              <h5 class="offcanvas-title fs-5 fw-bold" id="offcanvasNavbarLabel">Classroom Quiz</h5>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
 
-              <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <li class="nav-item dropdown">
 
-            </div>
-
-            <div class="offcanvas-body ms-auto text-white d-flex flex-column flex-lg-row p-4 p-lg-0 ">
-            <div class="nav-item">
-              <a href="" class="nav-link d-flex align-items-center justify-content-center fs-5" data-bs-toggle="collapse" data-bs-target="#submenu" aria-expanded="false" aria-controls="submenu>
-                <span class="description">{{current_user.usuario}}</span>
-                <span class="icon">
-                  <i class="bi bi-person-circle fs-1 ms-2"></i>
-                </span>
+          <a class="nav-link fs-4 dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ current_user.usuario if current_user.is_authenticated else "Usuário" }}
+            <i class="bi bi-person-circle fs-3">  </i> 
+          </a>
+          
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+              <a class="dropdown-item" href="#">
+                <i class="bi bi-gear me-2"></i>Configurações
               </a>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger btn btn-danger-outline" href="{{ url_for('login.logout_usuario') }}">
+                <i class="bi bi-box-arrow-right me-2"></i>Sair
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-              <div class="sub-menu collapse" id="submenu">
-                <a class="nav-link">
-                  <span class="icon">
-                    <i class="bi bi-gear"></i>
-                  </span>
-                  <span class="description">Configurações</span>
-                </a>
+{% block menuv %}
+<div class="sidebar-menuv">
+  <nav class="nav flex-column">
+    <a href="{{url_for('home.homepage')}}" class="nav-link" title="Início">
+      <span class="icon">
+        <i class="bi bi-house-door fs-3"></i>
+      </span>
+      <span class="description">Início</span>
+    </a>
 
-                <a href="{{url_for('login.logout_usuario')}}" class="nav-link">
-                  <span class="description text-white text-decoration-none px-4 py-2 rounded-4 fs-5 btn btn-danger"><span class="icon"></span>
-                    <i class="bi bi-box-arrow-left">Sair</i>
-                  </span></span>
-                </a>
-              </div>
-            </div>
-              <!-- <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-                <a class='text-white text-decoration-none px-4 py-2 rounded-4 fs-5 btn btn-danger' href='{{url_for('login.logout_usuario')}}'>Sair</a>
-              </div> -->
-            </div>
-          </div>
-        </div>
-      </nav>
+    <a href="{{url_for('home.codigo_sala')}}" class="nav-link" title="Jogar">
+      <span class="icon">
+        <i class="bi bi-controller fs-3"></i>
+      </span>
+      <span class="description">Jogar</span>
+    </a>
+    
+    {% if current_user.tipo_conta == 'professor' %}
+      <a href="{{url_for('home.criar_quiz')}}" class="nav-link" title="Criar">
+        <span class="icon">
+          <i class="bi bi-tools fs-3"></i>
+        </span>
+        <span class="description">Criar</span>
+      </a>
+    {% endif %}
 
-      <div class="sidebar-menuv">
-        <nav class="nav flex-column">
-          <a href="{{url_for('home.homepage')}}" class="nav-link" title="Início">
-            <span class="icon">
-              <i class="bi bi-house-door fs-3"></i>
-            </span>
-            <span class="description">Início</span>
-          </a>
+    <a href="" class="nav-link" title="Conteúdos">
+      <span class="icon">
+        <i class="bi bi-file-earmark-text fs-3"></i>
+      </span>
+      <span class="description">Conteúdos</span>
+    </a>
+    
+    {% if current_user.tipo_conta == 'professor' %}
+      <a href="" class="nav-link" title="Relatórios">
+        <span class="icon">
+          <i class="bi bi-graph-up-arrow fs-3"></i>
+        </span>
+        <span class="description">Relatórios</span>
+      </a>
+    {% endif %}
 
-          <a href="{{url_for('home.codigo_sala')}}" class="nav-link" title="Jogar">
-            <span class="icon">
-              <i class="bi bi-controller fs-3"></i>
-            </span>
-            <span class="description">Jogar</span>
-          </a>
-          
-          {% if current_user.tipo_conta == 'professor' %}
-            <a href="{{url_for('home.criar_quiz')}}" class="nav-link" title="Criar">
-              <span class="icon">
-                <i class="bi bi-tools fs-3"></i>
-              </span>
-              <span class="description">Criar</span>
-            </a>
-          {% endif %}
+  </nav>
+</div>
+{% endblock menuv %}
 
-          <a href="" class="nav-link" title="Conteúdos">
-            <span class="icon">
-              <i class="bi bi-file-earmark-text fs-3"></i>
-            </span>
-            <span class="description">Conteúdos</span>
-          </a>
-          
-          {% if current_user.tipo_conta == 'professor' %}
-            <a href="" class="nav-link" title="Relatórios">
-              <span class="icon">
-                <i class="bi bi-graph-up-arrow fs-3"></i>
-              </span>
-              <span class="description">Relatórios</span>
-            </a>
-          {% endif %}
+{% block conteudo %}
+{%endblock conteudo%}
 
-        </nav>
-      </div>
-
-      <div class="main-content">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-               {% for category, message in messages %}
-                  <div class='alert alert-{{category}} alert-dismissible fade-show role='alert''>
-                      <button
-                      type="button"
-                      class="btn btn-close"
-                      data-bs-dismiss="alert"
-                      aria-label="Close">
-                      </button>
-                      {{message}}
-                  </div>
-               {% endfor %}
-          {% endif %}
-        {% endwith %}
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam vitae dolor maxime, officia velit adipisci. Saepe autem alias maxime commodi sed voluptatibus libero esse illo, voluptates nisi doloribus! Molestias, reiciendis?Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam nam totam doloribus? Placeat a fugit recusandae expedita, id in excepturi aut labore rem at, possimus officia non minima doloremque ut!
-      </div>
-
-    {% block conteudo %}
-
-    {%endblock conteudo%}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/dc0e123cae.js" crossorigin="anonymous"></script>
-
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/dc0e123cae.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
