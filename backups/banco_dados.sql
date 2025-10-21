@@ -1,9 +1,0 @@
--- Tabela: users
--- Tabela: banco_questoes
--- Tabela: quiz
--- Tabela: perguntas
--- Tabela: relatorioGeral
--- Tabela: perguntas_quiz
--- Tabela: resposta
--- Tabela: correcao
--- Tabela: relatorioPerguntas
