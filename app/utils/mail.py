@@ -1,7 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 from flask import current_app, url_for
-from models.users import Users
+from models.usuario import Usuario
 from datetime import datetime
 import pytz
 
@@ -13,7 +13,7 @@ def send_confirm_email(user):
     msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
     msg['To'] = user.email
     msg.set_content(
-        f''' Olá {user.nome}!
+        f''' Olá {user.nome_completo}!
     
 Para confirmar seu e-mail, acesse o link: 
         
@@ -27,7 +27,7 @@ Se você não solicitou isso, ignore este e-mail.
     msg.add_alternative(f"""
 <html>
   <body>
-    <p>Olá <strong>{user.nome}</strong>!</p>
+    <p>Olá <strong>{user.nome_completo}</strong>!</p>
 
     <p>Para confirmar seu e-mail, acesse o link:</p>
 
@@ -60,7 +60,7 @@ def send_reset_email(user):
     msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
     msg['To'] = user.email
     msg.set_content(
-        f''' Olá {user.nome}!
+        f''' Olá {user.nome_completo}!
     
 Para redefinir sua senha, acesse o link: 
         
@@ -73,7 +73,7 @@ Se você não solicitou isso, ignore este e-mail.
     msg.add_alternative(f"""
 <html>
   <body>
-    <p>Olá <strong>{user.nome}</strong>!</p>
+    <p>Olá <strong>{user.nome_completo}</strong>!</p>
 
     <p>Para redefinir sua senha, clique no link abaixo:</p>
 

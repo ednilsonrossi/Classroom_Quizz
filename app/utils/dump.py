@@ -1,12 +1,12 @@
 import os
-from models.users import Users
+from models.usuario import Usuario
 from utils.db import db
 from datetime import datetime
 
 def gerar_dump_usuarios(pasta='backups'):
 
     os.makedirs(pasta, exist_ok=True)
-    usuarios = Users.query.all()
+    usuarios = Usuario.query.all()
 
     filename_base = 'banco_dados.sql'
     filename = os.path.join(pasta, filename_base)
@@ -25,6 +25,6 @@ def gerar_dump_usuarios(pasta='backups'):
 
         for usuario in usuarios:
             nascimento = usuario.nascimento.strftime('%Y-%m-%d') if usuario.nascimento else 'NULL'
-            sql_query = f"INSERT INTO Users (email, senha, tipo_conta, nome, usuario, nascimento) VALUES ('{usuario.email}', '{usuario.senha}', '{usuario.tipo_conta}', '{usuario.nome}', '{usuario.usuario}', {nascimento};"
+            sql_query = f"INSERT INTO USUARIO (email, senha, tipo_conta, nome_completo, username, nascimento) VALUES ('{usuario.email}', '{usuario.senha}', '{usuario.tipo_conta}', '{usuario.nome_completo}', '{usuario.username}', {nascimento};"
 
             f.write(sql_query + '\n')
