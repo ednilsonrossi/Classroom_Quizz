@@ -42,7 +42,7 @@
 
           <a class="nav-link fs-4 dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ current_user.usuario if current_user.is_authenticated else "Usuário" }}
+            {{ current_user.username if current_user.is_authenticated else "Usuário" }}
             <i class="bi bi-person-circle fs-3">  </i> 
           </a>
           
@@ -81,7 +81,7 @@
       <span class="description">Jogar</span>
     </a>
     
-    {% if current_user.tipo_conta == 'professor' %}
+    {% if current_user.tipo_conta.value == 'Professor' %}
       <a href="{{url_for('home.criar_quiz')}}" class="nav-link" title="Criar">
         <span class="icon">
           <i class="bi bi-tools fs-3"></i>
@@ -97,7 +97,7 @@
       <span class="description">Conteúdos</span>
     </a>
     
-    {% if current_user.tipo_conta == 'professor' %}
+    {% if current_user.tipo_conta.value == 'Professor' %}
       <a href="" class="nav-link" title="Relatórios">
         <span class="icon">
           <i class="bi bi-graph-up-arrow fs-3"></i>
