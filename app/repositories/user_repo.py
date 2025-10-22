@@ -1,4 +1,4 @@
-from models.usuario import Usuario, TipoConta
+from models import Usuario, TipoConta
 from datetime import datetime
 from utils.db import db
 
@@ -6,31 +6,25 @@ class UserRepository:
 
     #Métodos de Busca
 
-    @staticmethod
-    def get_by_id(user_id: int) -> Usuario | None:
+    def get_by_id(self, user_id: int) -> Usuario | None:
         return Usuario.query.get(user_id)
     
-    @staticmethod
-    def get_by_email(email: str) -> Usuario | None:
+    def get_by_email(self, email: str) -> Usuario | None:
         return Usuario.query.filter_by(email=email).first()
     
-    @staticmethod
-    def get_by_username(username: str) -> Usuario | None:
+    def get_by_username(self, username: str) -> Usuario | None:
         return Usuario.query.filter_by(username=username).first()
     
     
     #Métodos de Cadastro e Edição
-    @staticmethod
-    def update_password(user: Usuario, new_password: str):
+    def update_password(self, user: Usuario, new_password: str):
         user.cripto_pwd = new_password
         db.session.commit()
 
-    @staticmethod
-    def update_and_commit(usuario:Usuario):
+    def update_and_commit(self, usuario:Usuario):
         db.session.commit()
 
-    @staticmethod
-    def create_user(user_data: dict) -> Usuario:
+    def create_user(self, user_data: dict) -> Usuario:
 
         #Converte a string aluno ou professor para o objeto ENUM
         user_data['tipo_conta'] = TipoConta(user_data['tipo_conta'])
@@ -50,12 +44,10 @@ class UserRepository:
 
         return user
 
-    @staticmethod
-    def confirm_user_account(usuario: Usuario):
+    def confirm_user_account(self, usuario: Usuario):
         usuario.confirm_user = True
         db.session.commit()
 
-#Uma única instância para todas as rotas
-user_repo = UserRepository()
+
 
        
