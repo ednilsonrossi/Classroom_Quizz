@@ -1,7 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 from flask import current_app, url_for
-from models.usuario import Usuario
+from models import Usuario
 from datetime import datetime
 import pytz
 

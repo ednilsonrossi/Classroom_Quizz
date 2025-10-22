@@ -1,5 +1,5 @@
 import os
-from models.usuario import Usuario
+from models import Usuario
 from utils.db import db
 from datetime import datetime
 
