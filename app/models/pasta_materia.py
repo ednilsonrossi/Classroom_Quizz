@@ -13,7 +13,7 @@ class PastaMateria(db.Model):
     atualizado_em = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
     __table_args__ = (
-        UniqueConstraint('usuario_id', 'nome', name='uq_usuario_nome_pasta');
+        UniqueConstraint('usuario_id', 'nome', name='uq_usuario_nome_pasta'),
     )
 
     # Relacionamentos
