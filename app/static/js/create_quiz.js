@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Array que armazena as questões do quiz, enquanto o usuario edita.
     let quizQuestions = []; 
     
-    // Índice da questão que está sendo exibida
+    //Índice da questão que está sendo exibida
     let currentQuestionIndex = 0; 
     
     const questionContainer = document.getElementById('current-question-container');
@@ -11,21 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const addQuestionBtn = document.getElementById('new-question-btn');
     const saveBtn = document.getElementById('save-quiz-btn');
     
-    // Referência aos templates HTML (os modelos invisíveis)
+    //Referência aos templates HTML (os modelos invisíveis)
     const questionTemplate = document.getElementById('question-slide-template');
     const alternativeTemplate = document.getElementById('alternative-template');
 
-    // Renderiza o template da questão sem valores ou com valores default
+    //Renderiza o template da questão sem valores ou com valores default
     addQuestion();
 
-    // Função de Anterior e Próximo aos botões
+    //Função de Anterior e Próximo aos botões
     prevBtn.addEventListener('click', () => navigateQuestions(-1));
     nextBtn.addEventListener('click', () => navigateQuestions(1));
 
-    // Salva o slide atual no array e cria uma nova questão em branco
+    //Salva o slide atual no array e cria uma nova questão em branco
     addQuestionBtn.addEventListener('click', addQuestion);
     
-    // Salva o último slide e adiciona no array, depois envia como JSON para a API.
+    //Salva o último slide e adiciona no array, depois envia como JSON para a API.
     saveBtn.addEventListener('click', finalizeAndSave); 
     
     //Salva os dados do slide atual no array sempre antes de mudar de slide
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
         }
-        // Permite apenas 2 alternativas (V ou F)
+        //Permite apenas 2 alternativas (V ou F)
         else if (currentItem.tipo_pergunta === 'verdadeiro_falso') {
             const totalAlternativas = currentItem.alternativas.length;
 
