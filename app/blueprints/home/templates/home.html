@@ -1,0 +1,44 @@
+{% extends "home_base.html" %}
+
+{% block head_extra_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+{% endblock head_extra_content %}
+
+{% block title %}Home{% endblock %}
+
+{% block conteudo %}
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class='alert alert-{{category}} alert-dismissible fade show' role='alert'>
+                    {{ message }}
+                    <button
+                        type="button"
+                        class="btn-close" 
+                        data-bs-dismiss="alert"
+                        aria-label="Close">
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row g-4"> 
+        
+        <div class="col-12 col-lg-4">
+            <div class="card shadow-sm h-100 bg-white border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-success fw-bold"><i class="bi bi-controller me-2"></i> Entrar em um Quiz</h5>
+                    <p class="card-text text-muted">Use o PIN do jogo fornecido pelo professor para começar a jogar agora!</p>
+                    <form action="{{ url_for('home.codigo_sala') }}" method="POST">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Digite o PIN (Ex: 12345)" required>
+                            <button class="btn btn-success" type="submit">Entrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock conteudo %}
