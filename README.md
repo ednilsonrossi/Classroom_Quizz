@@ -80,16 +80,17 @@ Resultados obtidos ao longo do desenvolvimento, incluindo links para artigos pro
     git clone https://github.com/ednilsonrossi/Classroom_Quizz.git
     cd Classroom_Quizz
     ```
-
+    
 2.  **Configuração do Backend**
     *   Instale as dependências:
+
         ```bash
         python3 -m venv venv
         source venv/bin/activate  # Linux/MacOS
         # ./venv/Scripts/activate  # Windows
         pip install -r requirements.txt
         ```
-
+      
 3.  **Configuração do Banco de Dados:**
 
     No seu cliente MySQL, crie o banco de dados:
@@ -106,27 +107,27 @@ Resultados obtidos ao longo do desenvolvimento, incluindo links para artigos pro
     ```
 
 4.  **Configure as Variáveis de Ambiente:**
-   
-    * Renomeie o arquivo `.env.example` para `.env` e preencha com suas credenciais do MySQL:
-    
-    ```shell
-    DATABASE_URL=mysql+pymysql://{usuario}:{senha}@localhost:3306/classroom_quizz
-    SECRET_KEY=sua_chave_secreta_aqui
 
-    MAIL_SERVER=smtp.gmail.com
-    MAIL_PORT=587  # Para envio TLS (para SSL, use 465)
-    MAIL_USERNAME=seu_email@gmail.com
-    MAIL_PASSWORD=sua_chave_app  # Deve ser uma chave de app
-    ```
-     
-6.  **Execução do Projeto**
+    Renomeie o arquivo `.env.example` para `.env` e preencha com suas credenciais do MySQL:
+
+    ```ini
+    DATABASE_URL=mysql+pymysql://{usuario}:{senha}@localhost:3306/classroom_quizz
+    SECRET_KEY=sua_chave_secreta_aqui
+
+    MAIL_SERVER=smtp.gmail.com
+    MAIL_PORT=587  # Para envio TLS (para SSL, use 465)
+    MAIL_USERNAME=seu_email@gmail.com
+    MAIL_PASSWORD=sua_chave_app  # Deve ser uma chave de app
+    ```
+
+5.  **Execução do Projeto**
     *   Na pasta `/app`, com o ambiente virtual ativado, execute:
 
         ```bash
         python index.py
         # Disponível em http://127.0.0.1:5000
         ```
-        
+      
 ---
 
 ## Equipe do Projeto
