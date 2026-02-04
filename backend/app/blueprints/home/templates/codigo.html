@@ -1,0 +1,30 @@
+{% extends "home_base.html" %}
+
+{% block menuv %}{% endblock menuv %}
+
+{% block conteudo %}
+      <div class="container-fluid">
+        <form action="" method="post" class="form-codigo mx-auto">
+            {{ form.hidden_tag() }}
+            <h3 class="text-center title-form text-white text-decoration-underline">Código da Sala</h3>
+            <div class="mt-4 mb-6 d-flex justify-content-center align-items-center">
+                <div class="mt-6">
+                    {% if form.codigo.errors %}
+                    {{form.codigo(class='form-control text-center is-invalid alert-danger')}}
+                    <div class="invalid-feedback">
+                        {% for error in form.codigo.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {{form.codigo(class='form-control text-center')}}
+                    {% endif %}
+                </div>
+                {{ form.submit(class='btn btn-codigo') }}
+            </div>
+        </form>
+    </div>
+    
+{% endblock conteudo %}
+</body>
+</html>
