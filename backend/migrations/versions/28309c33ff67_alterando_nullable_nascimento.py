@@ -1,8 +1,8 @@
-"""Refatoranto tableas antigas e adicionando novas
+"""Alterando nullable nascimento
 
-Revision ID: 32fa41cc52f2
+Revision ID: 28309c33ff67
 Revises: 
-Create Date: 2025-10-21 13:15:22.020917
+Create Date: 2026-03-23 00:03:29.857440
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '32fa41cc52f2'
+revision = '28309c33ff67'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('nome_completo', sa.String(length=100), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
     sa.Column('tipo_conta', sa.Enum('aluno', 'professor', name='tipoconta'), nullable=False),
-    sa.Column('nascimento', sa.Date(), nullable=True),
+    sa.Column('nascimento', sa.Date(), nullable=False),
     sa.Column('confirm_user', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
@@ -40,7 +40,8 @@ def upgrade():
     sa.Column('criado_em', sa.DateTime(), nullable=False),
     sa.Column('atualizado_em', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['usuario_id'], ['usuario.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('usuario_id', 'nome', name='uq_usuario_nome_pasta')
     )
     op.create_table('quiz',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
