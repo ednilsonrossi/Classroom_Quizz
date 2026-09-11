@@ -1,39 +1,42 @@
 from flask import Flask
 from config import config_dict
 from flask_migrate import Migrate
-from app.utils.extensions import bcrypt, login_manager
+from flask_cors import CORS
+from app.utils.extensions import bcrypt, jwt
+from app.utils import jwt_handlers
 from app.utils.db import db
+
 
 def create_app(config_name='default'):
     app = Flask(__name__)
 
-    app.config.from_object(config_dict[config_name]) # por que nao from_pyfile como na documentação?
+    app.config.from_object(config_dict[config_name])
 
-    #Inicializando o banco de dados
+    CORS(app, 
+        supports_credentials=True, 
+        origins=app.config.get('CORS_ORIGINS', []),
+        allow_headers=["Content-Type", "Authorization"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    )
     db.init_app(app)
-    migrate = Migrate(app, db)
-
-    #Inicializando as extenções
+    Migrate(app, db)
+    jwt.init_app(app)
     bcrypt.init_app(app)
-    login_manager.init_app(app)
 
-    #Identificação da página de login, caso não esteja logado será redirecionado a pagina de login
-    login_manager.login_view = 'login.login_usuario'
-    login_manager.login_message = 'Por favor, realize o login!'
-    login_manager.login_message_category = 'danger'
+    from app.routes import register_blueprint
+    register_blueprint(app)
 
-    from app.blueprints.auth.cadastro import cadastro
-    from app.blueprints.auth.login import login
-    from app.blueprints.public import public
-    from app.blueprints.home import home
-    from app.blueprints.quiz import quiz
+    # #backup do banco de dados
+    # @app.route('/gerar-dump', methods=['GET'])
+    # def gerar_dump():
+    #     gerar_dump_usuarios('../backups')
+    #     return "Dump gerado com sucesso!"
 
-    #Liga os arquivos de routes ao programa principal, colocando um prefixo na url
-    app.register_blueprint(public)
-    app.register_blueprint(cadastro, url_prefix='/cadastro')
-    app.register_blueprint(login, url_prefix='/login')
-    app.register_blueprint(home, url_prefix='/home')
-    app.register_blueprint(quiz, url_prefix='/api/quizzes')
+    # @app.route('/limpar-sessao')
+    # def limpar_sessao():
+    #     session.clear()
+    #     flash('Sessão de cadastro limpa. Você pode começar de novo.', 'info')
+    #     return redirect(url_for('cadastro.cadastro_01'))
 
     return app
 
