@@ -28,3 +28,7 @@ class Quiz(db.Model):
         self.criador_original_id = criador_original_id if criador_original_id is not None else usuario_id
         
         self.pasta_id = pasta_id #opcional
+
+    @property
+    def questions_count(self):
+        return self.questoes.count()
