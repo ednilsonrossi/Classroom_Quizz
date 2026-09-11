@@ -1,18 +1,14 @@
-from flask import current_app #Usado para pegar os dados de onde a aplicação flask foi instanciada, no caso app.py
+from flask import current_app
 from flask_login import UserMixin
-from itsdangerous import URLSafeTimedSerializer
-from app.utils.extensions import bcrypt, login_manager
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
+from app.utils.extensions import bcrypt
 from app.utils.db import db
 from datetime import datetime, timezone
 import enum
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
-
 class TipoConta(enum.Enum):
-    aluno = 'Aluno'
-    professor = 'Professor'
+    aluno = 'aluno'
+    professor = 'professor'
 
 class Usuario(db.Model, UserMixin):
     __tablename__ = 'usuario'
@@ -23,69 +19,86 @@ class Usuario(db.Model, UserMixin):
     nome_completo = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     tipo_conta = db.Column(db.Enum(TipoConta), default=TipoConta.aluno, nullable=False)
-    nascimento = db.Column(db.Date, nullable=True)
+    nascimento = db.Column(db.Date, nullable=False)
     confirm_user = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     #Relacionamentos com as outras tabelas
+    used_tokens = db.relationship('UsedToken', back_populates='user', lazy='dynamic', cascade='all, delete-orphan')
+    revoked_tokens = db.relationship('RevokedToken', back_populates='user', lazy='dynamic', cascade='all, delete-orphan')
+
     quizzes_gerenciados = db.relationship('Quiz', foreign_keys='Quiz.usuario_id', back_populates='dono', cascade='all, delete-orphan', lazy='dynamic')
     quizzes_originais = db.relationship('Quiz', foreign_keys='Quiz.criador_original_id', back_populates='criador_original', lazy='dynamic')
 
     questoes_criadas = db.relationship('Questao', back_populates='usuario', cascade='all, delete-orphan', lazy='dynamic')
     pastas = db.relationship('PastaMateria', back_populates='usuario', cascade='all, delete-orphan', lazy='dynamic')
-    
-    def get_confirmation_token(self):
-        s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-    
-        hora_utc = datetime.now(timezone.utc)
-        timestamp = hora_utc.timestamp()
 
-        return s.dumps({'user_id': self.id, 'timestamp': timestamp})
-    
-    @staticmethod # Não precisa de self, pois não depende de nenhuma instância
-    def verify_confirmation_token(token, expires_sec=86400):#Expira em 24 horas
+    CONFIRM_SALT = 'email-confirm'
+    RESET_SALT = 'password-reset'
+
+    def _get_serializer(self):
+        return URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+
+    def _generate_token(self, purpose, salt):
+        s = self._get_serializer()
+
+        payload = {
+            'user_id': self.id,
+            'purpose': purpose
+        }
+
+        return s.dumps(payload, salt=salt)
+
+    @staticmethod
+    def _verify_token(token, expires_sec, expected_purpose, salt):
         s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
 
         try:
-            dados = s.loads(token, max_age=expires_sec)
-            user_id = dados['user_id']
-            timestamp = int(dados['timestamp'])
-        except:
+            data = s.loads(token, max_age=expires_sec, salt=salt)
+        except (BadSignature, SignatureExpired):
             return None
         
-        #Pegar o id do usuario que realizará a confirmação
-        user= Usuario.query.get(user_id)
-
+        if data.get('purpose') != expected_purpose:
+            return None
+        
+        user_id = data.get('user_id')
+        if not user_id:
+            return None
+        
+        user = Usuario.query.get(user_id)
         if user is None:
             return None
 
         return user
 
-    def get_reset_token(self):
-        s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-
-        hora_utc = datetime.now(timezone.utc)
-        timestamp = hora_utc.timestamp()
-
-        return s.dumps({'user_id': self.id, 'timestamp': timestamp})
+    def generate_confirmation_token(self):
+        return self._generate_token(
+            purpose='confirm_email',
+            salt=self.CONFIRM_SALT
+        )
     
     @staticmethod # não precisa de um objeto (instância). Útil para funções relacionadas à classe, mas que não usam 'self'. Pertence à classe, mas não depende de nenhuma instância específica dela, como se fosse uma função de fora do objeto basicamente.
+    def verify_confirmation_token(token, expires_sec=86400):
+        return Usuario._verify_token(
+            token=token, 
+            expires_sec=expires_sec,
+            expected_purpose='confirm_email',
+            salt=Usuario.CONFIRM_SALT
+        )
+
+    def generate_reset_token(self):
+        return self._generate_token(
+            purpose='reset_password', 
+            salt=self.RESET_SALT)
+    
+    @staticmethod 
     def verify_reset_token(token, expires_sec=1800):
-        s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-        try:
-            dados = s.loads(token, max_age=expires_sec)
-            user_id = dados['user_id']
-            timestamp = int(dados['timestamp'])
-        except:
-            return None
-        
-        #Pegar o id do usuario que solicitou a redefinição
-        user= Usuario.query.get(user_id)
-
-        if user is None:
-            return None
-
-        return user
+       return Usuario._verify_token(
+           token=token,
+           expires_sec=expires_sec,
+           expected_purpose='reset_password',
+           salt=Usuario.RESET_SALT
+       )
 
     @property
     def cripto_pwd(self):
