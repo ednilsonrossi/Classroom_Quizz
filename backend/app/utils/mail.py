@@ -1,96 +1,79 @@
+from flask import current_app
 import smtplib
 from email.message import EmailMessage
-from flask import current_app, url_for
-from app.models import Usuario
 from datetime import datetime
 import pytz
 
-def send_confirm_email(user):
-    token = user.get_confirmation_token()
-
-    msg = EmailMessage()
-    msg['Subject'] = f'Confirmação de Email - Classroom Quiz'
-    msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
-    msg['To'] = user.email
-    msg.set_content(
-        f''' Olá {user.nome_completo}!
-    
-Para confirmar seu e-mail, acesse o link: 
-        
-{url_for('cadastro.confirm_token', token=token, _external=True)}
-
-        
-Se você não solicitou isso, ignore este e-mail.
-''')
-    
-    #Tipo de email alternativo, caso o dispositivo aceite arquivo html
-    msg.add_alternative(f"""
-<html>
-  <body>
-    <p>Olá <strong>{user.nome_completo}</strong>!</p>
-
-    <p>Para confirmar seu e-mail, acesse o link:</p>
-
-    <p><a href="{url_for('cadastro.confirm_token', token=token, _external=True)}">Confirmar e-mail</a></p>
-
-    <p>Se você não solicitou isso, ignore este e-mail.</p>
-  </body>
-</html>
-""", subtype='html')
-    
+def send_email(subject, recipient, text_body, html_body):
     EMAIL = current_app.config['MAIL_USERNAME']
     SENHA = current_app.config['MAIL_PASSWORD']
+    SMTP_SERVER = current_app.config['MAIL_SERVER']
+    SMTP_PORT = current_app.config['MAIL_PORT']
 
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-        smtp.starttls()                     
-        smtp.login(EMAIL, SENHA)         
-        smtp.send_message(msg)          
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = f"Classroom Quizz <{EMAIL}>"
+    msg['To'] = recipient
+    msg.set_content(text_body)
+    msg.add_alternative(html_body, subtype='html')
 
-    print('E-mail enviado com sucesso!')
+    try:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
+            smtp.starttls()                     
+            smtp.login(EMAIL, SENHA)         
+            smtp.send_message(msg)  
+
+    except Exception as e:
+        current_app.logger.error(f"Erro ao enviar email: {e}")        
+
+def send_confirm_email(user):
+    token = user.generate_confirmation_token()
+    BASE_URL = current_app.config['FRONTEND_URL']
+    link = f"{BASE_URL}/auth/confirm-email?token={token}"
+
+    send_email(subject='Confirmação de E-mail - Classroom Quizz',
+               recipient=user.email,
+               text_body=f'''
+Olá {user.nome_completo}!
+
+Para confirmar seu e-mail:
+{link}
+
+Se você não solicitou isso, ignore este e-mail.
+
+''',
+                html_body=f'''
+<p>Olá <strong>{user.nome_completo}</strong>!</p>
+<p>Para confirmar seu e-mail:</p>
+<p><a href="{link}">Confirmar e-mail</a></p>
+<p>Se você não solicitou isso, ignore este e-mail.</p>
+'''
+    )   
 
 def send_reset_email(user):
-    token = user.get_reset_token()
+    token = user.generate_reset_token()
+    BASE_URL = current_app.config['FRONTEND_URL']
+    link = f"{BASE_URL}/auth/reset-password?token={token}"
 
     tz_brasilia = pytz.timezone('America/Sao_Paulo')
     hora_brasil = datetime.now(tz_brasilia)
     date = hora_brasil.strftime("%d/%m/%Y - %H:%M:%S")
 
-    msg = EmailMessage()
-    msg['Subject'] = f'Redefinição de Senha {date} - Classroom Quiz'
-    msg['From'] = f"Samuel Fernandes <{current_app.config['MAIL_USERNAME']}>"
-    msg['To'] = user.email
-    msg.set_content(
-        f''' Olá {user.nome_completo}!
+    send_email(
+        subject=f'Redefinição de Senha {date} - Classroom Quizz',
+        recipient=user.email,
+        text_body=f'''
+Olá {user.nome_completo}!
     
-Para redefinir sua senha, acesse o link: 
-        
-{url_for('login.reset_token', token=token, _external=True)}
+Para redefinir sua senha:    
+{link}
 
-        
 Se você não solicitou isso, ignore este e-mail.
-''')
-    
-    msg.add_alternative(f"""
-<html>
-  <body>
-    <p>Olá <strong>{user.nome_completo}</strong>!</p>
-
-    <p>Para redefinir sua senha, clique no link abaixo:</p>
-
-    <p><a href="{url_for('login.reset_token', token=token, _external=True)}">Redefinir senha</a></p>
-
-    <p>Se você não solicitou isso, ignore este e-mail.</p>
-  </body>
-</html>
-""", subtype='html')
-    
-    EMAIL = current_app.config['MAIL_USERNAME']
-    SENHA = current_app.config['MAIL_PASSWORD']
-
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-        smtp.starttls()                     
-        smtp.login(EMAIL, SENHA)         
-        smtp.send_message(msg)          
-
-    print('E-mail enviado com sucesso!')
-
+''',
+        html_body=f'''
+<p>Olá <strong>{user.nome_completo}</strong>!</p>
+<p>Para redefinir sua senha:</p>
+<p><a href="{link}">Redefinir senha</a></p>
+<p>Se você não solicitou isso, ignore este e-mail.</p>
+'''
+    )
