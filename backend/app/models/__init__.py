@@ -1,4 +1,6 @@
 from app.models.usuario import Usuario, TipoConta
+from app.models.revoked_token import RevokedToken
+from app.models.used_token import UsedToken
 from app.models.quiz import Quiz
 from app.models.questao import Questao, TipoQuestao
 from app.models.alternativa import Alternativa

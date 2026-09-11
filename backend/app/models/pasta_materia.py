@@ -18,9 +18,13 @@ class PastaMateria(db.Model):
 
     # Relacionamentos
     usuario = db.relationship('Usuario', back_populates='pastas', lazy='select')
-    quizzes = db.relationship('Quiz', back_populates='pasta_materia', lazy='dynamic')
+    quizzes = db.relationship('Quiz', back_populates='pasta_materia', lazy='dynamic', cascade='all, delete-orphan')
 
     def __init__(self, nome, descricao, usuario_id):
         self.nome = nome
         self.descricao = descricao
         self.usuario_id = usuario_id
+
+    @property
+    def quizzes_count(self):
+        return self.quizzes.count()
