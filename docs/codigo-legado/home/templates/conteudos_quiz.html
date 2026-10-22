@@ -1,0 +1,12 @@
+{% extends "home_base.html" %}
+
+{% block head_extra_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+{% endblock head_extra_content %}
+
+{% block conteudo %}
+<div class='quizzes-container'>
+</div>
+
+<script src="{{ url_for('static', filename='js/list_quizzes.js') }}"></script>
+{% endblock conteudo %}
