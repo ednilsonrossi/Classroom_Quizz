@@ -20,7 +20,7 @@
 ---
 
 ## 1. Visão Geral do Sistema
-O sistema **Classroom Quiz** será implementado como um Game-Based Student Response System (GSRS), acessível via navegador web em dispositivos desktop e responsivo para dispositivos móveis (celulares e tablets). Seu objetivo principal é promover uma aprendizagem ativa, envolvente e motivadora em salas de aula, através de uma plataforma de quiz gamificada, semelhante ao Kahoot!. O projeto visa superar as limitações do Kahoot!, oferecendo novas funcionalidades de gamificação, feedback detalhado e sendo disponibilizado como Software Livre (Código Aberto).
+O sistema **Classroom Quizz** será implementado como um Game-Based Student Response System (GSRS), acessível via navegador web em dispositivos desktop e responsivo para dispositivos móveis (celulares e tablets). Seu objetivo principal é promover uma aprendizagem ativa, envolvente e motivadora em salas de aula, através de uma plataforma de quiz gamificada, semelhante ao Kahoot!. O projeto visa superar as limitações do Kahoot!, oferecendo novas funcionalidades de gamificação, feedback detalhado e sendo disponibilizado como Software Livre (Código Aberto).
 
 ---
 
