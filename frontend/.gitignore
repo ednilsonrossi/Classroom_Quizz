@@ -29,3 +29,6 @@ dist-ssr
 env/
 venv/
 ENV/
+
+# Arquivos estáticos e uploads
+backend/app/static/uploads/
