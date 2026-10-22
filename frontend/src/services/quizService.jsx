@@ -1,5 +1,5 @@
 import api from "../api/api";
-import { handleServiceError } from "../utils/ErrorHandler";
+import { handleServiceError } from "../utils/errorHandler.jsx";
 
 export const quizService = {
 
